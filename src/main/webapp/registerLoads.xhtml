@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+<head>
+    <title></title>
+</head>
+<body>
+
+<h:form>
+    <h:commandButton id="showRedirect" name="showRedirect" value="Go to page Show Loads" action="showLoads.xhtml"></h:commandButton>
+</h:form>
+
+<h:form >
+    Content:
+    <h:inputText value="#{registerLoadsManageBean.tempContent}"></h:inputText>
+    Harbor:
+    <h:inputText value="#{registerLoadsManageBean.tempHarbor}"></h:inputText>
+    <h:commandButton value="Register loads" action="#{registerLoadsManageBean.registerLoad}"></h:commandButton>
+</h:form>
+</body>
+</html>
