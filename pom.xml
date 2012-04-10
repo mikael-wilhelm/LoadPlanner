@@ -1,84 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project >
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <parent>
-        <groupId>se.ndi09mlf.exjob</groupId>
-        <artifactId>LoadPlannerParent</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
-
-    <groupId>se.ndi09mlf.exjob</groupId>
-    <artifactId>LoadPlannerMain</artifactId>
+    <groupId>se.ndi09mlf.herokuHelloWorld</groupId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
-
-
+    <artifactId>helloworld</artifactId>
     <dependencies>
         <dependency>
-            <groupId>javax.faces</groupId>
-            <artifactId>jsf-api</artifactId>
-            <version>2.0.2-FCS</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.faces</groupId>
-            <artifactId>jsf-impl</artifactId>
-            <version>2.0.2-FCS</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet.jsp.jstl</groupId>
-            <artifactId>jstl-api</artifactId>
-            <version>1.2</version>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-servlet</artifactId>
+            <version>7.6.0.v20120127</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <version>2.5</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-            <version>2.1</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.el</groupId>
-            <artifactId>el-ri</artifactId>
-            <version>1.0</version>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
-                <groupId>org.codehaus.cargo</groupId>
-                <artifactId>cargo-maven2-plugin</artifactId>
-                <version>1.0.2</version>
-                <configuration>
-                    <container>
-                        <containerId>tomcat7x</containerId>
-                        <type>installed</type>
-                        <home>C:\tools\tomcat</home>
-                    </container>
-                    <configuration>
-                        <type>existing</type>
-                        <home>C:\tools\tomcat</home>
-                    </configuration>
-                    <deployer>
-                        <type>installed</type>
-                        <deployables>
-                            <deployable>
-                                <groupId>se.ndi09mlf.exjob</groupId>
-                                <artifactId>LoadPlannerMain</artifactId>
-                                <type>war</type>
-                            </deployable>
-                        </deployables>
-                    </deployer>
-                </configuration>
-
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.4</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals><goal>copy-dependencies</goal></goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
-    
 </project>
