@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+<head>
+    <title></title>
+</head>
+<body>
+
+      <h:form>
+          <h:commandButton id="regRedirect" name="regRedirect" value="Go to page Register Loads" action="registerLoads.xhtml"></h:commandButton>
+      </h:form>
+
+      <h:form >
+          <h:inputText value="#{showLoadsManageBean.filter}"></h:inputText>
+          <h:commandButton value="Filter"></h:commandButton>
+          <h:dataTable value="#{showLoadsManageBean.loads}" var="row" border="5" >
+              <h:column>
+                  <f:facet name="header" >Load Contents</f:facet>
+                  <h:outputText value="#{row.content}"/>
+              </h:column>
+              <h:column>
+                  <f:facet name="header">Load Harbor</f:facet>
+                  <h:outputText  value="#{row.harbor}"/>
+              </h:column>
+          </h:dataTable>
+      </h:form>
+
+
+
+
+</body>
+</html>
