@@ -5,6 +5,7 @@ import model.Load;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -13,7 +14,7 @@ public class LoadDAOTest {
 
     @Test
     public void clearAllTest(){
-        LoadDAO loadDAO = new LoadDAO();
+        LoadDAOimpl loadDAO = new LoadDAOimpl();
         loadDAO.insertLoad("testContent", "testHarbor");
         loadDAO.insertLoad("testContent2", "testHarbor2");
 
@@ -33,9 +34,9 @@ public class LoadDAOTest {
     }
     @Test
       public void addLoadTest(){
-        LoadDAO loadDAO = new LoadDAO();
+        LoadDAOimpl loadDAO = new LoadDAOimpl();
         loadDAO.insertLoad("testContent", "testHarbor");
-        ArrayList<Load> registeredLoads = loadDAO.getLoads();
+        HashMap<Integer,Load> registeredLoads = loadDAO.getLoads();
         Load load = registeredLoads.get(0);
 
         int sizeResult = registeredLoads.size();
@@ -55,10 +56,10 @@ public class LoadDAOTest {
 
     @Test
       public void filterResultsTest(){
-         LoadDAO loadDAO = new LoadDAO();
+        LoadDAOimpl loadDAO = new LoadDAOimpl();
         loadDAO.insertLoad("testContent", "testHarbor");
         loadDAO.insertLoad("testContent2", "testHarbor2");
-        ArrayList<Load> registeredFilteredLoads = loadDAO.getLoadsFilteredByHarbor("testHarbor");
+        HashMap<Integer,Load>registeredFilteredLoads = loadDAO.getLoadsFilteredByHarbor("testHarbor");
         Load load = registeredFilteredLoads.get(0);
 
         int sizeResult = registeredFilteredLoads.size();

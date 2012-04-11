@@ -4,18 +4,19 @@ package database;
 import model.Load;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Loads {
     private static Loads loads = new Loads();
-    private ArrayList<Load> loadList = new ArrayList<Load>();
+    private HashMap<Integer,Load> loadList = new HashMap<Integer,Load>();
     private Loads(){
 
     }
     public void insertLoad(String content, String harbor){
-        loadList.add(new Load(content, harbor));
+        loadList.put(loadList.size(),new Load(content, harbor));
     }
 
-    public ArrayList<Load> getLoads(){
+    public HashMap<Integer,Load> getLoads(){
         return loadList;
     }
 

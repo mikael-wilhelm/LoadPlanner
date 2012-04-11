@@ -1,6 +1,7 @@
 package showBeans;
 
-import databaseAccess.LoadDAO;
+import controller.Controller;
+import databaseAccess.LoadDAOimpl;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -9,8 +10,7 @@ import javax.faces.bean.RequestScoped;
 @RequestScoped
 public class RegisterLoadsManageBean {
 
-
-    private LoadDAO loadDAO = new LoadDAO();
+    private Controller controller = new Controller();
 
     private String tempContent = "Enter Content";
 
@@ -20,7 +20,7 @@ public class RegisterLoadsManageBean {
 
 
     public void registerLoad(){
-        loadDAO.insertLoad(tempContent, tempHarbor);
+        controller.insertLoad(tempContent, tempHarbor);
     }
 
 
