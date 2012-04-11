@@ -6,9 +6,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public interface LoadDAO {
-    public void insertLoad(String content, String harbor);
-    public HashMap<Integer,Load> getLoads();
-    public HashMap<Integer,Load> getLoadsFilteredByHarbor(String s);
+    public Load insertLoad(String content, String harbor);
+    public ArrayList<Load> getLoads();
+    public ArrayList<Load> getLoadsFilteredByHarbor(String s);
     public int getNumberOfLoads();
     public void clearAllEntries();
+    public Load updateLoad(Load load);
+    public Load getLoad(int loadID);
+
+
 }

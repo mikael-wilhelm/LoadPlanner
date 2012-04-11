@@ -12,12 +12,31 @@ public class Loads {
     private Loads(){
 
     }
-    public void insertLoad(String content, String harbor){
-        loadList.put(loadList.size(),new Load(content, harbor));
+    public Load insertLoad(String content, String harbor){
+        int newKey =  loadList.size();
+        Load load = new Load(content, harbor, newKey) ;
+        loadList.put(newKey,load);
+        return load;
+
     }
 
     public HashMap<Integer,Load> getLoads(){
         return loadList;
+    }
+
+    public Load updateLoad(Load load){
+        int loadID = load.getId();
+        deleteLoad(load.getId());
+        loadList.put(loadID,load);
+        return load;
+    }
+
+    public Load getLoad(int loadID){
+        return loadList.get(loadID);
+    }
+
+    public void deleteLoad(int loadID){
+        loadList.remove(loadID);
     }
 
     public static Loads getInstance(){

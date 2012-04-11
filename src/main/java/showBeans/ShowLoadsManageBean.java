@@ -13,7 +13,7 @@ import java.util.List;
 @ManagedBean
 @RequestScoped
 public class ShowLoadsManageBean {
-    private HashMap<Integer,Load> loads = new HashMap<Integer,Load>();
+    private ArrayList<Load> loads = new ArrayList<Load>();
     private Controller controller = new Controller();
     private String filter="";
 
@@ -25,19 +25,15 @@ public class ShowLoadsManageBean {
         this.filter = filter;
     }
 
-    public HashMap<Integer,Load> getLoads() {
+    public ArrayList<Load> getLoads() {
 
-
+        loads = controller.getLoadsFilteredByHarbor(filter);
         return loads;
     }
 
-    public List<Integer> getKeyAsList(){
-        loads = controller.getLoadsFilteredByHarbor(filter);
-        ArrayList<Integer> keys = new ArrayList<Integer>(loads.keySet());
-        return  keys;
-    }
 
-    public void setLoads(HashMap<Integer,Load> loads) {
+
+    public void setLoads(ArrayList<Load> loads) {
         this.loads = loads;
     }
 }

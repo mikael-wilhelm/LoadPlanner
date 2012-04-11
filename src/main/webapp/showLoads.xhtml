@@ -17,20 +17,20 @@
           <h:inputText value="#{showLoadsManageBean.filter}"></h:inputText>
           <h:commandButton value="Filter"></h:commandButton>
 
-          <h:dataTable value="#{showLoadsManageBean.keyAsList}" var="row" border="5" >
+          <h:dataTable value="#{showLoadsManageBean.loads}" var="row" border="5" >
               <h:column>
                   <f:facet name="header" >Load Id</f:facet>
-                  <h:outputText value="#{row}"/>
+                  <h:outputText value="#{row.id}"/>
               </h:column>
 
               <h:column>
                   <f:facet name="header" >Load Content</f:facet>
-                  <h:outputText value="#{showLoadsManageBean.loads[row].content}"/>
+                  <h:outputText value="#{row.content}"/>
               </h:column>
 
               <h:column>
                   <f:facet name="header" >Load Harbor</f:facet>
-                  <h:outputText value="#{showLoadsManageBean.loads[row].harbor}"/>
+                  <h:outputText value="#{row.harbor}"/>
               </h:column>
 
           </h:dataTable>

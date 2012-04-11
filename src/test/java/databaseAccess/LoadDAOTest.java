@@ -11,6 +11,23 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 public class LoadDAOTest {
+    @Test
+    public void reserveLoadTest(){
+        LoadDAOimpl loadDAO = new LoadDAOimpl();
+        Load load = loadDAO.insertLoad("testCont", "testHarb");
+        load.setReserved(true);
+
+        Load loadResult = loadDAO.updateLoad(load);
+
+        boolean reservedResult = loadResult.getReserved();
+        boolean expectedResult = true;
+
+        assertThat(reservedResult,is(expectedResult));
+
+        loadDAO.clearAllEntries();
+    }
+
+
 
     @Test
     public void clearAllTest(){
@@ -36,7 +53,7 @@ public class LoadDAOTest {
       public void addLoadTest(){
         LoadDAOimpl loadDAO = new LoadDAOimpl();
         loadDAO.insertLoad("testContent", "testHarbor");
-        HashMap<Integer,Load> registeredLoads = loadDAO.getLoads();
+        ArrayList<Load> registeredLoads = loadDAO.getLoads();
         Load load = registeredLoads.get(0);
 
         int sizeResult = registeredLoads.size();
@@ -59,7 +76,7 @@ public class LoadDAOTest {
         LoadDAOimpl loadDAO = new LoadDAOimpl();
         loadDAO.insertLoad("testContent", "testHarbor");
         loadDAO.insertLoad("testContent2", "testHarbor2");
-        HashMap<Integer,Load>registeredFilteredLoads = loadDAO.getLoadsFilteredByHarbor("testHarbor");
+        ArrayList<Load> registeredFilteredLoads = loadDAO.getLoadsFilteredByHarbor("testHarbor");
         Load load = registeredFilteredLoads.get(0);
 
         int sizeResult = registeredFilteredLoads.size();
