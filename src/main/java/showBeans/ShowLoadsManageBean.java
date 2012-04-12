@@ -1,39 +1,47 @@
 package showBeans;
 
 import controller.Controller;
-import databaseAccess.LoadDAOimpl;
 import model.Load;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class ShowLoadsManageBean {
-    private ArrayList<Load> loads = new ArrayList<Load>();
+
+    private ArrayList<Load> notReservedLoads = new ArrayList<Load>();
     private Controller controller = new Controller();
     private String filter="";
+    private String tempID ="test";
+
+    public void reserveLoad(){
+        controller.reserveLoad(Integer.parseInt(tempID));
+    }
+
+    public String getTempID() {
+        return tempID;
+    }
+
+    public void setTempID(String tempID) {
+        this.tempID = tempID;
+    }
 
     public String getFilter() {
         return filter;
     }
 
+    public ArrayList<Load> getNotReservedLoads() {
+        notReservedLoads = controller.getNotReservedLoads(filter);
+        return notReservedLoads;
+    }
+
+    public void setNotReservedLoads(ArrayList<Load> notReservedLoads) {
+        this.notReservedLoads = notReservedLoads;
+    }
+
     public void setFilter(String filter) {
         this.filter = filter;
-    }
-
-    public ArrayList<Load> getLoads() {
-
-        loads = controller.getLoadsFilteredByHarbor(filter);
-        return loads;
-    }
-
-
-
-    public void setLoads(ArrayList<Load> loads) {
-        this.loads = loads;
     }
 }

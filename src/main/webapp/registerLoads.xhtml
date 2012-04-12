@@ -9,10 +9,10 @@
 </head>
 <body>
 
-<h:form>
-    <h:commandButton id="showRedirect" name="showRedirect" value="Go to page Show Loads" action="showLoads.xhtml"></h:commandButton>
-</h:form>
 
+
+<h:panelGroup layout="block" style="border:2; position:relative; float:left; left:10px; top:5px; ">
+    Register Loads
 <h:form >
     Content:
     <f:verbatim><br/></f:verbatim>
@@ -24,5 +24,33 @@
     <f:verbatim><br/></f:verbatim>
     <h:commandButton value="Register loads" action="#{registerLoadsManageBean.registerLoad}"></h:commandButton>
 </h:form>
+</h:panelGroup>
+
+<h:panelGroup layout="block" style="border:2; position:relative; float:left; left:10%; top:5px; ">
+    Reserved Loads
+    <h:form >
+              <h:dataTable value="#{registerLoadsManageBean.loads}" var="row" border="5" >
+                  <h:column>
+                      <f:facet name="header" >Load Id</f:facet>
+                      <h:outputText value="#{row.id}"/>
+                  </h:column>
+                  <h:column>
+                      <f:facet name="header" >Load Content</f:facet>
+                      <h:outputText value="#{row.content}"/>
+                  </h:column>
+                  <h:column>
+                      <f:facet name="header" >Load Harbor</f:facet>
+                      <h:outputText value="#{row.harbor}"/>
+                  </h:column>
+
+              </h:dataTable>
+
+    </h:form>
+</h:panelGroup>
+<h:panelGroup layout="block" style=" position:absolute; bottom:0px">
+<h:form>
+    <h:commandButton id="showRedirect" name="showRedirect" value="Go to page Show Loads" action="showLoads.xhtml" ></h:commandButton>
+</h:form>
+</h:panelGroup>
 </body>
 </html>

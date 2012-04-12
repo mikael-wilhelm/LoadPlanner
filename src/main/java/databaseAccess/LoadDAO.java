@@ -13,6 +13,7 @@ public interface LoadDAO {
     public void clearAllEntries();
     public Load updateLoad(Load load);
     public Load getLoad(int loadID);
-
+    public ArrayList<Load> getReservedLoads();
+    public ArrayList<Load> getNotReservedLoadsFilteredByHarbor(String s);
 
 }

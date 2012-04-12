@@ -62,4 +62,25 @@ public  class LoadDAOimpl implements LoadDAO{
          return Loads.getInstance().getLoad(loadID);
     }
 
+    @Override
+    public ArrayList<Load> getReservedLoads() {
+        Loads tempLoads = Loads.getInstance();
+            ArrayList<Load> loadsMatching = new ArrayList<Load>();
+            for(Load load : tempLoads.getLoads().values())
+                if(load.getReserved())
+                    loadsMatching.add(load);
+            return loadsMatching;
+
+    }
+
+    @Override
+    public ArrayList<Load> getNotReservedLoadsFilteredByHarbor(String s) {
+         Loads tempLoads = Loads.getInstance();
+            ArrayList<Load> loadsMatching = new ArrayList<Load>();
+            for(Load load : tempLoads.getLoads().values())
+                if(!load.getReserved() && (s.equals(load.getHarbor())||s.equals("")))
+                    loadsMatching.add(load);
+            return loadsMatching;
+    }
+
 }

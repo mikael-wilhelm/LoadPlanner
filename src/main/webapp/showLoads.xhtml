@@ -8,19 +8,16 @@
     <title></title>
 </head>
 <body>
-
-      <h:form>
-          <h:commandButton id="regRedirect" name="regRedirect" value="Go to page Register Loads" action="registerLoads.xhtml"></h:commandButton>
-      </h:form>
-
       <h:form >
           <h:inputText value="#{showLoadsManageBean.filter}"></h:inputText>
           <h:commandButton value="Filter"></h:commandButton>
 
-          <h:dataTable value="#{showLoadsManageBean.loads}" var="row" border="5" >
+          <h:dataTable value="#{showLoadsManageBean.notReservedLoads}" var="row" border="5" >
               <h:column>
                   <f:facet name="header" >Load Id</f:facet>
-                  <h:outputText value="#{row.id}"/>
+                  <h:commandLink  action="#{showLoadsManageBean.reserveLoad}" value="#{row.id}">
+                      <f:setPropertyActionListener target="#{showLoadsManageBean.tempID}" value="#{row.id}" />
+                  </h:commandLink>
               </h:column>
 
               <h:column>
@@ -34,10 +31,13 @@
               </h:column>
 
           </h:dataTable>
+
       </h:form>
 
-
-
-
+<h:panelGroup layout="block" style=" position:absolute; bottom:0px">
+<h:form>
+    <h:commandButton id="regRedirect" name="regRedirect" value="Go to page Register Loads" action="registerLoads.xhtml"></h:commandButton>
+</h:form>
+</h:panelGroup>
 </body>
 </html>
