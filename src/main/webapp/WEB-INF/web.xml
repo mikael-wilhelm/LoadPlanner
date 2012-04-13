@@ -22,7 +22,7 @@
 
         <!--The welcome page for the login-app -->
 <welcome-file-list>
-<welcome-file>faces/showLoads.xhtml</welcome-file>
+<welcome-file>faces/mainPage.xhtml</welcome-file>
 </welcome-file-list>
 
 </web-app>

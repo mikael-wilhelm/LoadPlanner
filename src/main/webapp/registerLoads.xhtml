@@ -11,7 +11,7 @@
 
 
 
-<h:panelGroup layout="block" style="border:2; position:relative; float:left; left:10px; top:5px; ">
+<h:panelGroup layout="block" style="border: 5px solid; position:relative; float:left; left:10px; top:5px; ">
     Register Loads
 <h:form >
     Content:
@@ -22,11 +22,16 @@
     <f:verbatim><br/></f:verbatim>
     <h:inputText value="#{registerLoadsManageBean.tempHarbor}"></h:inputText>
     <f:verbatim><br/></f:verbatim>
+    Destination:
+    <f:verbatim><br/></f:verbatim>
+    <h:inputText value="#{registerLoadsManageBean.tempDestination}"></h:inputText>
+    <f:verbatim><br/></f:verbatim>
     <h:commandButton value="Register loads" action="#{registerLoadsManageBean.registerLoad}"></h:commandButton>
+
 </h:form>
 </h:panelGroup>
 
-<h:panelGroup layout="block" style="border:2; position:relative; float:left; left:10%; top:5px; ">
+<h:panelGroup layout="block" style="border: 5px solid; position:relative; float:left; left:10%; top:5px; ">
     Reserved Loads
     <h:form >
               <h:dataTable value="#{registerLoadsManageBean.loads}" var="row" border="5" >
@@ -43,14 +48,15 @@
                       <h:outputText value="#{row.harbor}"/>
                   </h:column>
 
+                  <h:column>
+                      <f:facet name="header" >Load Destination</f:facet>
+                      <h:outputText value="#{row.destination}"/>
+                  </h:column>
+
               </h:dataTable>
 
     </h:form>
 </h:panelGroup>
-<h:panelGroup layout="block" style=" position:absolute; bottom:0px">
-<h:form>
-    <h:commandButton id="showRedirect" name="showRedirect" value="Go to page Show Loads" action="showLoads.xhtml" ></h:commandButton>
-</h:form>
-</h:panelGroup>
+
 </body>
 </html>

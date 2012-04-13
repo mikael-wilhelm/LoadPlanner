@@ -12,12 +12,18 @@ public class Loads {
     private Loads(){
 
     }
-    public Load insertLoad(String content, String harbor){
+    public Load insertLoad(String content, String harbor, String destination){
         int newKey =  loadList.size();
-        Load load = new Load(content, harbor, newKey) ;
+        Load load = new Load(content, harbor, destination, newKey) ;
         loadList.put(newKey,load);
         return load;
 
+    }
+
+    public Load insertLoad(Load load){
+        int newKey = loadList.size();
+        loadList.put(newKey,load);
+        return load;
     }
 
     public HashMap<Integer,Load> getLoads(){

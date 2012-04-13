@@ -4,11 +4,12 @@ import controller.Controller;
 import model.Load;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import java.util.ArrayList;
 
 @ManagedBean
-@SessionScoped
+@RequestScoped
 public class ShowLoadsManageBean {
 
     private ArrayList<Load> notReservedLoads = new ArrayList<Load>();
@@ -33,7 +34,7 @@ public class ShowLoadsManageBean {
     }
 
     public ArrayList<Load> getNotReservedLoads() {
-        notReservedLoads = controller.getNotReservedLoads(filter);
+        notReservedLoads = controller.getNotReservedLoadsFilteredByHarbor(filter);
         return notReservedLoads;
     }
 

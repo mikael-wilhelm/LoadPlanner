@@ -9,42 +9,37 @@ import java.util.HashMap;
 
 public  class LoadDAOimpl implements LoadDAO{
 
-
-    public LoadDAOimpl(){
-
+    public Load insertLoad(String content, String harbor,String destination){
+        return Loads.getInstance().insertLoad(content, harbor,destination);
     }
 
-    public Load insertLoad(String content, String harbor){
-        return Loads.getInstance().insertLoad(content, harbor);
-    }
-
-    public void insertLoad(Load load){
-
-    }
-
-    public ArrayList<Load> getLoads(){
-         ArrayList<Load>  allLoads = new ArrayList<Load>();
-         for(Load load:Loads.getInstance().getLoads().values())
-             allLoads.add(load);
-        return allLoads;
-    }
-
-    public ArrayList<Load> getLoadsFilteredByHarbor(String s){
+    @Override
+    public ArrayList<Load> getNotReservedLoadsFilteredByHarbor(String s) {
         Loads tempLoads = Loads.getInstance();
-        if(!s.equals("")){
-            ArrayList<Load> loadsMatching = new ArrayList<Load>();
-            for(Load load : tempLoads.getLoads().values())
-                if(s.equals(load.getHarbor()))
-                    loadsMatching.add(load);
-            return loadsMatching;
-        }
-        else
-            return getLoads();
-
+        ArrayList<Load> loadsMatching = new ArrayList<Load>();
+        for(Load load : tempLoads.getLoads().values())
+            if(!load.getReserved() && (s.equals(load.getHarbor())||s.equals("")))
+                loadsMatching.add(load);
+        return loadsMatching;
     }
 
-    public int getNumberOfLoads(){
-        return Loads.getInstance().size();
+    @Override
+    public ArrayList<Load> getAllLoads() {
+        Loads tempLoads = Loads.getInstance();
+        ArrayList<Load> loadsMatching = new ArrayList<Load>();
+        for(Load load : tempLoads.getLoads().values())
+                loadsMatching.add(load);
+        return loadsMatching;
+    }
+
+    @Override
+    public ArrayList<Load> getReservedLoads() {
+        Loads tempLoads = Loads.getInstance();
+        ArrayList<Load> loadsMatching = new ArrayList<Load>();
+        for(Load load : tempLoads.getLoads().values())
+            if(load.getReserved())
+                loadsMatching.add(load);
+        return loadsMatching;
     }
 
     public void clearAllEntries(){
@@ -59,28 +54,6 @@ public  class LoadDAOimpl implements LoadDAO{
 
     @Override
     public Load getLoad(int loadID) {
-         return Loads.getInstance().getLoad(loadID);
+        return Loads.getInstance().getLoad(loadID);
     }
-
-    @Override
-    public ArrayList<Load> getReservedLoads() {
-        Loads tempLoads = Loads.getInstance();
-            ArrayList<Load> loadsMatching = new ArrayList<Load>();
-            for(Load load : tempLoads.getLoads().values())
-                if(load.getReserved())
-                    loadsMatching.add(load);
-            return loadsMatching;
-
-    }
-
-    @Override
-    public ArrayList<Load> getNotReservedLoadsFilteredByHarbor(String s) {
-         Loads tempLoads = Loads.getInstance();
-            ArrayList<Load> loadsMatching = new ArrayList<Load>();
-            for(Load load : tempLoads.getLoads().values())
-                if(!load.getReserved() && (s.equals(load.getHarbor())||s.equals("")))
-                    loadsMatching.add(load);
-            return loadsMatching;
-    }
-
 }

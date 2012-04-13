@@ -15,10 +15,14 @@ public class RegisterLoadsManageBean {
     private Controller controller = new Controller();
     private String tempContent = "Enter Content";
     private String tempHarbor = "Enter Harbor";
+
+
+
+    private String tempDestination ="Enter destination";
     private ArrayList<Load> loads = new ArrayList<Load>();
 
     public void registerLoad(){
-        controller.insertLoad(tempContent, tempHarbor);
+        controller.insertLoad(tempContent, tempHarbor,tempDestination);
     }
 
     public ArrayList<Load> getLoads() {
@@ -40,6 +44,14 @@ public class RegisterLoadsManageBean {
 
     public void setTempContent(String tempContent) {
         this.tempContent = tempContent;
+    }
+
+    public String getTempDestination() {
+        return tempDestination;
+    }
+
+    public void setTempDestination(String tempDestination) {
+        this.tempDestination = tempDestination;
     }
 
 }

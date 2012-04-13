@@ -8,24 +8,12 @@ import java.util.ArrayList;
 public class Controller {
     private LoadDAOimpl loadDAO = new LoadDAOimpl();
 
-    public ArrayList<Load> getLoadsFilteredByHarbor(String s){
-        return loadDAO.getLoadsFilteredByHarbor(s);
+
+    public Load insertLoad(String content, String harbor, String destination){
+        return loadDAO.insertLoad(content, harbor, destination);
     }
 
-    public ArrayList<Load> getLoads(){
-        return loadDAO.getLoads();
-    }
-
-    public Load insertLoad(String content, String harbor){
-        return loadDAO.insertLoad(content, harbor);
-    }
-
-    public void reserveLoad(Load load){
-        load.setReserved(true);
-        loadDAO.updateLoad(load);
-    }
-
-    public ArrayList<Load> getNotReservedLoads(String s){
+    public ArrayList<Load> getNotReservedLoadsFilteredByHarbor(String s){
         return loadDAO.getNotReservedLoadsFilteredByHarbor(s);
     }
 
@@ -39,7 +27,15 @@ public class Controller {
 
     public void reserveLoad(int loadID){
         Load load = loadDAO.getLoad(loadID);
+        reserveLoad(load);
+    }
+
+    public void reserveLoad(Load load){
         load.setReserved(true);
         loadDAO.updateLoad(load);
+    }
+
+    public ArrayList<Load> getAllLoads(){
+        return loadDAO.getAllLoads();
     }
 }

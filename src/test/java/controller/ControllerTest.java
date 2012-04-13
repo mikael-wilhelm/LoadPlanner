@@ -13,53 +13,51 @@ public class ControllerTest {
      private Controller controller = new Controller();
 
     @Test
-    public void reserveLoadsTest(){
-        Load loadNotReserved1 = controller.insertLoad("Load1Not", "Load1NotCont");
-        Load loadNotReserved2 = controller.insertLoad("Load2Not", "Load2NotCont");
-        Load loadNotReserved3 = controller.insertLoad("Load3Not", "Load3NotCont");
-        Load loadReserved1 = controller.insertLoad("Load1Res", "Load1ResCont");
-        Load loadReserved2 = controller.insertLoad("Load2Res", "Load2ResCont");
+    public void reserveLoadByIDTest(){
+        Load expectedNotReservedLoad = controller.insertLoad("LoadNotResContent", "LoadNotResHarbor","LoadNotResDest");
+        Load expectedReservedLoad = controller.insertLoad("LoadResContent", "LoadResHarbor","loadResDest");
 
-        controller.reserveLoad(loadReserved1);
-        controller.reserveLoad(loadReserved2);
+        controller.reserveLoad(expectedReservedLoad.getId());
 
         ArrayList<Load> reservedLoads = controller.getReservedLoads();
-        ArrayList<Load> notReservedLoads = controller.getNotReservedLoads("");
+        ArrayList<Load> notReservedLoads = controller.getNotReservedLoadsFilteredByHarbor("");
 
-        int numberOfReservedLoads = reservedLoads.size();
-        int expectedSizeReserved = 2;
+        int reservedLoadsSize = reservedLoads.size();
+        int notReservedLoadsSize = notReservedLoads.size();
+        int expectedReservedSize = 1;
+        int expectedNotReservedSize = 1;
 
-        int numberOfNotReservedLoads = notReservedLoads.size();
-        int expectedSizeNotReserved = 3;
+        Load reservedLoadResult = reservedLoads.get(0);
+        Load notReservedLoadResult = notReservedLoads.get(0);
 
+        assertThat(reservedLoadsSize, is(expectedReservedSize));
+        assertThat(notReservedLoadsSize, is(expectedNotReservedSize));
 
+        assertThat(notReservedLoadResult,is(expectedNotReservedLoad));
+        assertThat(reservedLoadResult,is(expectedReservedLoad));
 
-        assertThat(numberOfReservedLoads, is(expectedSizeReserved));
-        assertThat(numberOfNotReservedLoads, is(expectedSizeNotReserved));
         controller.clearAllLoads();
     }
 
     @Test
-    public void reserveLoadByIDTest(){
-        controller.insertLoad("Load1Not", "Load1NotCont");
-        controller.insertLoad("Load2Not", "Load2NotCont");
-        controller.insertLoad("Load1Res", "Load1ResCont");
-        controller.insertLoad("Load2Res", "Load2ResCont");
+    public void clearAllTest(){
+        controller.insertLoad("TestContent", "TestHarbor","TestDest");
+        controller.insertLoad("TestContent", "TestHarbor","TestDest");
 
-        controller.reserveLoad(2);
-        controller.reserveLoad(3);
+        ArrayList<Load> allLoads = controller.getAllLoads();
 
-        ArrayList<Load> reservedLoads = controller.getReservedLoads();
-        int numberOfReservedLoads = reservedLoads.size();
-
-        int expectedSize = 2;
-
-        assertThat(numberOfReservedLoads, is(expectedSize));
+        int resultBefore = allLoads.size();
 
         controller.clearAllLoads();
 
+        allLoads = controller.getAllLoads();
+
+        int resultAfter = allLoads.size();
+
+        int expectedBefore = 2;
+        int expectedAfter = 0;
+
+        assertThat(resultBefore, is(expectedBefore));
+        assertThat(resultAfter, is(expectedAfter));
     }
-
-
-
 }
