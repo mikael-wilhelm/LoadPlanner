@@ -1,6 +1,7 @@
 package showBeans;
 
 import controller.Controller;
+import databaseAccess.LoadNotFoundException;
 import model.Load;
 
 import javax.faces.bean.ManagedBean;
@@ -18,7 +19,11 @@ public class ShowLoadsManageBean {
     private String tempID ="test";
 
     public void reserveLoad(){
-        controller.reserveLoad(Integer.parseInt(tempID));
+         try{
+            controller.reserveLoad(Integer.parseInt(tempID));
+         }
+         catch(LoadNotFoundException ignored){
+         }
     }
 
     public String getTempID() {

@@ -10,7 +10,7 @@
 <body>
 <h:panelGroup layout="block" style=" position:relative; left:10px; top:10px">
       <h:form >
-          <h:inputText value="#{showLoadsManageBean.filter}"></h:inputText>
+          <h:inputText value="#{showLoadsManageBean.filter}"/>
           <h:commandButton name ="filterButton" value="Filter"></h:commandButton>
 
           <h:dataTable value="#{showLoadsManageBean.notReservedLoads}" var="row" border="5" >

@@ -1,12 +1,14 @@
 package controller;
 
+import databaseAccess.LoadDAO;
 import databaseAccess.LoadDAOimpl;
+import databaseAccess.LoadNotFoundException;
 import model.Load;
 
 import java.util.ArrayList;
 
 public class Controller {
-    private LoadDAOimpl loadDAO = new LoadDAOimpl();
+    private LoadDAO loadDAO = new LoadDAOimpl();
 
 
     public Load insertLoad(String content, String harbor, String destination){
@@ -21,13 +23,18 @@ public class Controller {
         return loadDAO.getReservedLoads();
     }
 
+    /**
+     * Should be removed and use a proper wrapper for db-management during test
+     */
+    @Deprecated
     public void clearAllLoads(){
         loadDAO.clearAllEntries();
     }
 
-    public void reserveLoad(int loadID){
-        Load load = loadDAO.getLoad(loadID);
-        reserveLoad(load);
+    public void reserveLoad(int loadID)throws LoadNotFoundException{
+            Load load = loadDAO.getLoad(loadID);
+            reserveLoad(load);
+
     }
 
     public void reserveLoad(Load load){

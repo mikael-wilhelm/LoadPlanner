@@ -14,13 +14,17 @@ public  class LoadDAOimpl implements LoadDAO{
     }
 
     @Override
-    public ArrayList<Load> getNotReservedLoadsFilteredByHarbor(String s) {
+    public ArrayList<Load> getNotReservedLoadsFilteredByHarbor(String matcher) {
         Loads tempLoads = Loads.getInstance();
         ArrayList<Load> loadsMatching = new ArrayList<Load>();
         for(Load load : tempLoads.getLoads().values())
-            if(!load.getReserved() && (s.equals(load.getHarbor())||s.equals("")))
-                loadsMatching.add(load);
+            if(isLoadMatching(load,matcher))
+                   loadsMatching.add(load);
         return loadsMatching;
+    }
+
+    private boolean isLoadMatching(Load load,String matcher){
+        return !load.getReserved() && (matcher.equals(load.getHarbor())||matcher.equals(""));
     }
 
     @Override
@@ -53,7 +57,11 @@ public  class LoadDAOimpl implements LoadDAO{
     }
 
     @Override
-    public Load getLoad(int loadID) {
-        return Loads.getInstance().getLoad(loadID);
+    public Load getLoad(int loadID) throws LoadNotFoundException{
+        Load load = Loads.getInstance().getLoad(loadID);
+        if(load != null)
+            return load;
+        else
+            throw new LoadNotFoundException();
     }
 }
