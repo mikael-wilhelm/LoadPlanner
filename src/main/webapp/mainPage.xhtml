@@ -10,15 +10,12 @@
 </head>
 <body>
 <h:panelGroup layout="block" style="background-color:#ffc0cb; float:left; position:absolute; height:100%; padding:10px;">
-    <h:form>
-        <h:commandLink  value="Administrate Loads">
+    <h:form id="linkForm">
+        <h:commandLink  id="administrateLoadLink" value="Administrate Loads">
                <f:setPropertyActionListener target="#{mainManageBean.actualPage}" value="registerLoads.xhtml" />
         </h:commandLink>
-
-    </h:form>
-
-    <h:form>
-        <h:commandLink  value="Show Loads">
+        <f:verbatim><br/></f:verbatim>
+        <h:commandLink id="showLoads" value="Show Loads">
                <f:setPropertyActionListener target="#{mainManageBean.actualPage}" value="showLoads.xhtml" />
         </h:commandLink>
 

@@ -9,11 +9,11 @@
 </head>
 <body>
 <h:panelGroup layout="block" style=" position:relative;">
-      <h:form >
+      <h:form id="showLoadsForm">
           <h:inputText value="#{showLoadsManageBean.filter}"/>
           <h:commandButton name ="filterButton" value="Filter"></h:commandButton>
 
-          <h:dataTable value="#{showLoadsManageBean.notReservedLoads}" var="row" border="5" >
+          <h:dataTable id="showLoadsDT" value="#{showLoadsManageBean.notReservedLoads}" var="row" border="5" >
               <h:column>
                   <f:facet name="header" >Load Id</f:facet>
                   <h:commandLink  action="#{showLoadsManageBean.reserveLoad}" value="#{row.id}">
@@ -22,8 +22,8 @@
               </h:column>
 
               <h:column>
-                  <f:facet name="header" >Load Contentsss</f:facet>
-                  <h:outputText value="#{row.content}"/>
+                  <f:facet name="header" >Load Content</f:facet>
+                  <h:outputText id="content" value="#{row.content}"/>
               </h:column>
 
               <h:column>

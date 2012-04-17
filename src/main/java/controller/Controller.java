@@ -23,18 +23,10 @@ public class Controller {
         return loadDAO.getReservedLoads();
     }
 
-    /**
-     * Should be removed and use a proper wrapper for db-management during test
-     */
-    @Deprecated
-    public void clearAllLoads(){
-        loadDAO.clearAllEntries();
-    }
 
     public void reserveLoad(int loadID)throws LoadNotFoundException{
             Load load = loadDAO.getLoad(loadID);
             reserveLoad(load);
-
     }
 
     public void reserveLoad(Load load){

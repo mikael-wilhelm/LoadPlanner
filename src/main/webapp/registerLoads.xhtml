@@ -13,28 +13,28 @@
 
 <h:panelGroup layout="block" style="border: 5px solid; position:relative; float:left; left:10px; top:5px; ">
     Register Loads
-<h:form >
+<h:form id="registerLoadForm" >
     Content:
     <f:verbatim><br/></f:verbatim>
-    <h:inputText value="#{registerLoadsManageBean.tempContent}"></h:inputText>
+    <h:inputText id="contentInput" value="#{registerLoadsManageBean.tempContent}"></h:inputText>
     <f:verbatim><br/></f:verbatim>
     Harbor:
     <f:verbatim><br/></f:verbatim>
-    <h:inputText value="#{registerLoadsManageBean.tempHarbor}"></h:inputText>
+    <h:inputText id="harborInput" value="#{registerLoadsManageBean.tempHarbor}"></h:inputText>
     <f:verbatim><br/></f:verbatim>
     Destination:
     <f:verbatim><br/></f:verbatim>
-    <h:inputText value="#{registerLoadsManageBean.tempDestination}"></h:inputText>
+    <h:inputText id="destinationInput" value="#{registerLoadsManageBean.tempDestination}"></h:inputText>
     <f:verbatim><br/></f:verbatim>
-    <h:commandButton value="Register loads" action="#{registerLoadsManageBean.registerLoad}"></h:commandButton>
+    <h:commandButton value="Register loads" id="registerLoadButton" action="#{registerLoadsManageBean.registerLoad}"></h:commandButton>
 
 </h:form>
 </h:panelGroup>
 
 <h:panelGroup layout="block" style="border: 5px solid; position:relative; float:left; left:10%; top:5px; ">
     Reserved Loads
-    <h:form >
-              <h:dataTable value="#{registerLoadsManageBean.loads}" var="row" border="5" >
+    <h:form id="reservedForm">
+              <h:dataTable id="reservedLoads" value="#{registerLoadsManageBean.loads}" var="row" border="5" >
                   <h:column>
                       <f:facet name="header" >Load Id</f:facet>
                       <h:outputText value="#{row.id}"/>
