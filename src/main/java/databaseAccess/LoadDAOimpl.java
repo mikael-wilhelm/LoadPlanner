@@ -13,7 +13,7 @@ public  class LoadDAOimpl implements LoadDAO{
         return Loads.getInstance().insertLoad(content, harbor,destination);
     }
 
-    @Override
+
     public ArrayList<Load> getNotReservedLoadsFilteredByHarbor(String matcher) {
         Loads tempLoads = Loads.getInstance();
         ArrayList<Load> loadsMatching = new ArrayList<Load>();
@@ -27,7 +27,7 @@ public  class LoadDAOimpl implements LoadDAO{
         return !load.getReserved() && (matcher.equals(load.getHarbor())||matcher.equals(""));
     }
 
-    @Override
+
     public ArrayList<Load> getAllLoads() {
         Loads tempLoads = Loads.getInstance();
         ArrayList<Load> loadsMatching = new ArrayList<Load>();
@@ -36,7 +36,7 @@ public  class LoadDAOimpl implements LoadDAO{
         return loadsMatching;
     }
 
-    @Override
+
     public ArrayList<Load> getReservedLoads() {
         Loads tempLoads = Loads.getInstance();
         ArrayList<Load> loadsMatching = new ArrayList<Load>();
@@ -50,13 +50,13 @@ public  class LoadDAOimpl implements LoadDAO{
         Loads.getInstance().clearAllEntries();
     }
 
-    @Override
+
     public Load updateLoad(Load load) {
         Loads.getInstance().updateLoad(load);
         return load;
     }
 
-    @Override
+
     public Load getLoad(int loadID) throws LoadNotFoundException{
         Load load = Loads.getInstance().getLoad(loadID);
         if(load != null)
