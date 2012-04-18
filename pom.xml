@@ -58,41 +58,9 @@
 
     <build>
         <plugins>
-	<plugin>
-	        <groupId>org.apache.maven.plugins</groupId>
-	        <artifactId>maven-compiler-plugin</artifactId>
-	        <configuration>
-	          <source>2.3.2</source>
-	          <target>2.3.2</target>
-	        </configuration>
-	      </plugin>
-            <plugin>
-                <groupId>org.codehaus.cargo</groupId>
-                <artifactId>cargo-maven2-plugin</artifactId>
-                <version>1.0.2</version>
-                <configuration>
-                    <container>
-                        <containerId>tomcat7x</containerId>
-                        <type>installed</type>
-                        <home>C:\tools\tomcat</home>
-                    </container>
-                    <configuration>
-                        <type>existing</type>
-                        <home>C:\tools\tomcat</home>
-                    </configuration>
-                    <deployer>
-                        <type>installed</type>
-                        <deployables>
-                            <deployable>
-                                <groupId>se.ndi09mlf.exjob</groupId>
-                                <artifactId>LoadPlannerMain</artifactId>
-                                <type>war</type>
-                            </deployable>
-                        </deployables>
-                    </deployer>
-                </configuration>
 
-            </plugin>
+
+
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
