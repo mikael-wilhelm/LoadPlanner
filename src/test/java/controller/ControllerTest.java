@@ -1,6 +1,5 @@
 package controller;
 
-import com.sun.jmx.snmp.UserAcl;
 import database.Loads;
 import databaseAccess.LoadNotFoundException;
 import model.Load;

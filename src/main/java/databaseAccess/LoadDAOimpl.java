@@ -13,7 +13,7 @@ public  class LoadDAOimpl implements LoadDAO{
         return Loads.getInstance().insertLoad(content, harbor,destination);
     }
 
-
+    @Override
     public ArrayList<Load> getNotReservedLoadsFilteredByHarbor(String matcher) {
         Loads tempLoads = Loads.getInstance();
         ArrayList<Load> loadsMatching = new ArrayList<Load>();
