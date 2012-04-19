@@ -18,7 +18,7 @@
     <f:verbatim><br/></f:verbatim>
     <h:inputText id="contentInput" value="#{registerLoadsManageBean.tempContent}"></h:inputText>
     <f:verbatim><br/></f:verbatim>
-    Harbor:
+    Current Harbor:
     <f:verbatim><br/></f:verbatim>
     <h:inputText id="harborInput" value="#{registerLoadsManageBean.tempHarbor}"></h:inputText>
     <f:verbatim><br/></f:verbatim>
@@ -36,7 +36,7 @@
     <h:form id="reservedForm">
               <h:dataTable id="reservedLoads" value="#{registerLoadsManageBean.loads}" var="row" border="5" >
                   <h:column>
-                      <f:facet name="header" >Load Id</f:facet>
+                      <f:facet name="header" >Id</f:facet>
                       <h:outputText value="#{row.id}"/>
                   </h:column>
                   <h:column>
@@ -44,12 +44,12 @@
                       <h:outputText value="#{row.content}"/>
                   </h:column>
                   <h:column>
-                      <f:facet name="header" >Load Harbor</f:facet>
+                      <f:facet name="header" >Current Harbor</f:facet>
                       <h:outputText value="#{row.harbor}"/>
                   </h:column>
 
                   <h:column>
-                      <f:facet name="header" >Load Destination</f:facet>
+                      <f:facet name="header" >Destination</f:facet>
                       <h:outputText value="#{row.destination}"/>
                   </h:column>
 
