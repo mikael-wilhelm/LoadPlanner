@@ -19,7 +19,7 @@ public  class LoadDAOimpl implements LoadDAO{
         ArrayList<Load> loadsMatching = new ArrayList<Load>();
         for(Load load : tempLoads.getLoads().values())
             if(isLoadMatching(load,matcher))
-                   loadsMatching.add(load);
+                loadsMatching.add(load);
         return loadsMatching;
     }
 
@@ -32,7 +32,7 @@ public  class LoadDAOimpl implements LoadDAO{
         Loads tempLoads = Loads.getInstance();
         ArrayList<Load> loadsMatching = new ArrayList<Load>();
         for(Load load : tempLoads.getLoads().values())
-                loadsMatching.add(load);
+            loadsMatching.add(load);
         return loadsMatching;
     }
 

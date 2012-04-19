@@ -17,8 +17,10 @@ public class ControllerTest {
     private Controller controller;
     @Before
     public void initTests(){
-    controller = new Controller();
+        controller = new Controller();
     }
+
+
 
     @Test
     public void insertLoadsTest(){
@@ -82,6 +84,7 @@ public class ControllerTest {
 
         assertThat(resultFilteredLoadsSize, is(expectedSize));
     }
+
 
     @After
     public void tearDown() {

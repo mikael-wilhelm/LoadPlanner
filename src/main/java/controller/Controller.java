@@ -25,8 +25,8 @@ public class Controller {
 
 
     public void reserveLoad(int loadID)throws LoadNotFoundException{
-            Load load = loadDAO.getLoad(loadID);
-            reserveLoad(load);
+        Load load = loadDAO.getLoad(loadID);
+        reserveLoad(load);
     }
 
     public void reserveLoad(Load load){
