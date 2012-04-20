@@ -10,7 +10,7 @@ import javax.faces.bean.SessionScoped;
 import java.util.ArrayList;
 
 @ManagedBean
-@SessionScoped
+@RequestScoped
 public class RegisterLoadsManageBean {
 
     private Controller controller = new Controller();
