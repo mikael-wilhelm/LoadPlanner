@@ -6,7 +6,7 @@ import javax.faces.bean.SessionScoped;
 import java.util.ArrayList;
 
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class MainManageBean {
 
     private String actualPage = "showLoads.xhtml";
