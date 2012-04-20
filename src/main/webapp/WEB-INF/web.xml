@@ -10,7 +10,7 @@
 <param-value>/WEB-INF/faces-config.xml</param-value>
 </context-param>
 
-        <!-- Mapp our files with JSF -->
+
 <servlet-mapping>
 <servlet-name>Faces Servlet</servlet-name>
 <url-pattern>/faces/*</url-pattern>
@@ -20,7 +20,6 @@
 <url-pattern>*.jsf</url-pattern>
 </servlet-mapping>
 
-        <!--The welcome page for the login-app -->
 <welcome-file-list>
 <welcome-file>faces/mainPage.xhtml</welcome-file>
 </welcome-file-list>
