@@ -10,7 +10,7 @@ import javax.faces.bean.SessionScoped;
 import java.util.ArrayList;
 
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class ShowLoadsManageBean {
 
     private ArrayList<Load> notReservedLoads = new ArrayList<Load>();

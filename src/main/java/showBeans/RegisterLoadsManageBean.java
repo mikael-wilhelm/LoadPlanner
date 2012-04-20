@@ -6,10 +6,11 @@ import model.Load;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import java.util.ArrayList;
 
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class RegisterLoadsManageBean {
 
     private Controller controller = new Controller();
