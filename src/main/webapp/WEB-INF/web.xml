@@ -1,34 +1,45 @@
 <web-app>
-<servlet>
-    <servlet-name>Faces Servlet</servlet-name>
-    <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
-</servlet>
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+    </servlet>
 
-        <!-- Set the location for the face config file -->
-<context-param>
-<param-name>javax.faces.CONFIG_FILES</param-name>
-<param-value>/WEB-INF/faces-config.xml</param-value>
-<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
-<param-value>client</param-value>
-</context-param>
+    <!-- Set the location for the face config file -->
+    <context-param>
+        <param-name>javax.faces.CONFIG_FILES</param-name>
+        <param-value>/WEB-INF/faces-config.xml</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+        <param-value>server</param-value>
+    </context-param>
+    <context-param>
+        <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+        <param-value>.xhtml</param-value>
+    </context-param>
+    <context-param>
+        <param-name>com.sun.faces.expressionFactory</param-name>
+        <param-value>com.sun.el.ExpressionFactoryImpl</param-value>
+    </context-param>
 
 
 
-<session-config>
-<session-timeout>35</session-timeout>
-</session-config>
+    <session-config>
+        <session-timeout>35</session-timeout>
+    </session-config>
 
-<servlet-mapping>
-<servlet-name>Faces Servlet</servlet-name>
-<url-pattern>/faces/*</url-pattern>
-</servlet-mapping>
-<servlet-mapping>
-<servlet-name>Faces Servlet</servlet-name>
-<url-pattern>*.jsf</url-pattern>
-</servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>/faces/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.jsf</url-pattern>
+    </servlet-mapping>
 
-<welcome-file-list>
-<welcome-file>faces/mainPage.xhtml</welcome-file>
-</welcome-file-list>
+    <welcome-file-list>
+        <welcome-file>faces/mainPage.xhtml</welcome-file>
+    </welcome-file-list>
 
 </web-app>
