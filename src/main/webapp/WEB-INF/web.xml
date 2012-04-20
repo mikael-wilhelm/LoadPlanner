@@ -10,6 +10,14 @@
 <param-value>/WEB-INF/faces-config.xml</param-value>
 </context-param>
 
+<context-param>
+<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+<param-value>client</param-value>
+</context-param>
+
+<session-config>
+<session-timeout>35</session-timeout>
+</session-config>
 
 <servlet-mapping>
 <servlet-name>Faces Servlet</servlet-name>
