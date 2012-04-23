@@ -22,14 +22,10 @@ public class ControllerTest {
     @Before
     public void initTests(){
         controller = new Controller();
-        //controller.setDAO(new LoadDAOHashTable());
+        controller.setDAO(new LoadDAOHashTable());
     }
 
-    @Test
-    public void testTest() throws SQLException, URISyntaxException {
-        ArrayList<Load> loads = controller.getNotReservedLoadsFilteredByHarbor("");
-        System.out.println(loads.get(0).getDestination());
-    }
+
 
     @Test
     public void insertLoadsTest() throws Exception {

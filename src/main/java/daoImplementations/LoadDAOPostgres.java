@@ -17,11 +17,10 @@ public class LoadDAOPostgres implements LoadDAO {
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-        //URI dbUri = new URI(System.getenv("DATABASE_URL"));
 
-    URI dbUri = new URI("postgres://postgres:Dataparm1@localhost/loadPlanner");
+        }
+       URI dbUri = new URI(System.getenv("DATABASE_URL"));
+
     String username = dbUri.getUserInfo().split(":")[0];
     String password = dbUri.getUserInfo().split(":")[1];
     String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + dbUri.getPath();
