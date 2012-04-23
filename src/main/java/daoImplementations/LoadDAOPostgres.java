@@ -63,7 +63,7 @@ public class LoadDAOPostgres implements LoadDAO {
     public ArrayList<Load> getNotReservedLoadsFilteredByHarbor(String s) throws SQLException, URISyntaxException {
         Connection connection = getConnection();
         Statement stmt = connection.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT id FROM loads");
+        ResultSet rs = stmt.executeQuery("SELECT id FROM loads;");
         ArrayList<Load> tempLoads = new ArrayList<Load>();
         while(rs.next())
             try {
