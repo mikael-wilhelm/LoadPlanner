@@ -19,7 +19,7 @@ public class LoadDAOPostgres implements LoadDAO {
         } catch (ClassNotFoundException e) {
 
         }
-       URI dbUri = new URI(System.getenv("DATABASE_URL"));
+       URI dbUri = new URI(System.getenv("SHARED_DATABASE_URL"));
 
     String username = dbUri.getUserInfo().split(":")[0];
     String password = dbUri.getUserInfo().split(":")[1];
