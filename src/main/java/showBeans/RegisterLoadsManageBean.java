@@ -1,7 +1,6 @@
 package showBeans;
 
 import controller.Controller;
-import databaseAccess.LoadDAOimpl;
 import model.Load;
 
 import javax.faces.bean.*;
@@ -19,7 +18,11 @@ public class RegisterLoadsManageBean {
     private ArrayList<Load> loads = new ArrayList<Load>();
 
     public String registerLoad(){
-        controller.insertLoad(tempContent, tempHarbor,tempDestination);
+        try {
+            controller.insertLoad(tempContent, tempHarbor,tempDestination);
+        } catch (Exception e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
         return "mainPage.xhtml";
     }
 

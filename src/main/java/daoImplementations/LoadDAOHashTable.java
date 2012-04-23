@@ -1,13 +1,15 @@
-package databaseAccess;
+package daoImplementations;
 
 
+import databaseAccess.LoadDAO;
+import databaseAccess.LoadNotFoundException;
 import model.Load;
 import database.Loads;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public  class LoadDAOimpl implements LoadDAO{
+public  class LoadDAOHashTable implements LoadDAO {
 
     public Load insertLoad(String content, String harbor,String destination){
         return Loads.getInstance().insertLoad(content, harbor,destination);
@@ -57,7 +59,7 @@ public  class LoadDAOimpl implements LoadDAO{
     }
 
 
-    public Load getLoad(int loadID) throws LoadNotFoundException{
+    public Load getLoad(int loadID) throws LoadNotFoundException {
         Load load = Loads.getInstance().getLoad(loadID);
         if(load != null)
             return load;

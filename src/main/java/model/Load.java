@@ -1,24 +1,19 @@
 package model;
 
-
 public class Load {
     private String content;
     private String harbor;
-
-
-
     private int id;
     private boolean reserved = false;
     private String destination;
 
-
-    public Load(String content, String harbor,int id){
+    public Load(String content, String harbor, int id) {
         this.content = content;
         this.harbor = harbor;
         this.id = id;
     }
 
-    public Load(String content, String harbor,String destination, int id){
+    public Load( int id, String content, String harbor, String destination) {
         this.content = content;
         this.harbor = harbor;
         this.id = id;
@@ -33,11 +28,11 @@ public class Load {
         this.id = id;
     }
 
-    public boolean getReserved(){
+    public boolean getReserved() {
         return reserved;
     }
 
-    public void setReserved(boolean  reserved){
+    public void setReserved(boolean reserved) {
         this.reserved = reserved;
     }
 
