@@ -40,4 +40,8 @@ public class Controller {
     public ArrayList<Load> getAllLoads() throws Exception {
         return loadDAO.getAllLoads();
     }
+
+    public void setDAO (LoadDAO dao){
+        loadDAO = dao;
+    }
 }

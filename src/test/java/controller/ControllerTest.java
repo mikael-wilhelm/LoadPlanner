@@ -1,5 +1,7 @@
 package controller;
 
+import daoImplementations.LoadDAOHashTable;
+import daoImplementations.LoadDAOPostgres;
 import database.Loads;
 import databaseAccess.LoadNotFoundException;
 import model.Load;
@@ -7,6 +9,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.net.URISyntaxException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import static org.hamcrest.core.Is.is;
@@ -18,12 +22,17 @@ public class ControllerTest {
     @Before
     public void initTests(){
         controller = new Controller();
+        //controller.setDAO(new LoadDAOHashTable());
     }
 
-
+    @Test
+    public void testTest() throws SQLException, URISyntaxException {
+        ArrayList<Load> loads = controller.getNotReservedLoadsFilteredByHarbor("");
+        System.out.println(loads.get(0).getDestination());
+    }
 
     @Test
-    public void insertLoadsTest(){
+    public void insertLoadsTest() throws Exception {
         //SUT
         controller.insertLoad("TestContent1", "TestHarbor1","TestDest1");
         controller.insertLoad("TestContent2", "TestHarbor2","TestDest2");
@@ -52,7 +61,7 @@ public class ControllerTest {
         assertThatOneLoadIsReserved(expectedNotReservedLoad, expectedReservedLoad);
     }
 
-    private void assertThatOneLoadIsReserved(Load expectedNotReservedLoad, Load expectedReservedLoad) {
+    private void assertThatOneLoadIsReserved(Load expectedNotReservedLoad, Load expectedReservedLoad) throws SQLException, URISyntaxException {
         ArrayList<Load> reservedLoads = controller.getReservedLoads();
         ArrayList<Load> notReservedLoads = controller.getNotReservedLoadsFilteredByHarbor("");
 
@@ -72,7 +81,7 @@ public class ControllerTest {
     }
 
     @Test
-    public void filterResultsTest(){
+    public void filterResultsTest() throws Exception {
         controller.insertLoad("TestContent", "a","TestDest");
         controller.insertLoad("TestContent", "a","TestDest");
         controller.insertLoad("TestContent", "b","TestDest");

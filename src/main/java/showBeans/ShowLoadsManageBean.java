@@ -7,6 +7,8 @@ import model.Load;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+import java.net.URISyntaxException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 @ManagedBean
@@ -23,6 +25,10 @@ public class ShowLoadsManageBean {
             controller.reserveLoad(Integer.parseInt(tempID));
          }
          catch(LoadNotFoundException ignored){
+         } catch (SQLException e) {
+             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+         } catch (URISyntaxException e) {
+             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
          }
     }
 
@@ -39,7 +45,13 @@ public class ShowLoadsManageBean {
     }
 
     public ArrayList<Load> getNotReservedLoads() {
-        notReservedLoads = controller.getNotReservedLoadsFilteredByHarbor(filter);
+        try {
+            notReservedLoads = controller.getNotReservedLoadsFilteredByHarbor(filter);
+        } catch (SQLException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (URISyntaxException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
         return notReservedLoads;
     }
 

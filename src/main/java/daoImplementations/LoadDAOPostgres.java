@@ -8,13 +8,20 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.zip.Inflater;
 
 
 public class LoadDAOPostgres implements LoadDAO {
 
     private static Connection getConnection() throws URISyntaxException, SQLException {
-    URI dbUri = new URI(System.getenv("DATABASE_URL"));
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        //URI dbUri = new URI(System.getenv("DATABASE_URL"));
 
+    URI dbUri = new URI("postgres://postgres:Dataparm1@localhost/loadPlanner");
     String username = dbUri.getUserInfo().split(":")[0];
     String password = dbUri.getUserInfo().split(":")[1];
     String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + dbUri.getPath();
@@ -43,6 +50,7 @@ public class LoadDAOPostgres implements LoadDAO {
         Connection connection = getConnection();
         Statement stmt = connection.createStatement();
         ResultSet loadValues = stmt.executeQuery("SELECT * FROM loads WHERE id = "+loadID+";");
+        loadValues.next();
         Load tempLoad = new Load(Integer.parseInt(loadValues.getString("id")),loadValues.getString("content"),loadValues.getString("harbor"),loadValues.getString("destination"));
         return tempLoad;
         }
