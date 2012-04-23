@@ -4,9 +4,7 @@ import controller.Controller;
 import databaseAccess.LoadDAOimpl;
 import model.Load;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.*;
 import java.util.ArrayList;
 
 @ManagedBean
@@ -14,16 +12,15 @@ import java.util.ArrayList;
 public class RegisterLoadsManageBean {
 
     private Controller controller = new Controller();
-    private String tempContent = "Enter Content";
-    private String tempHarbor = "Enter Harbor";
+    private String tempContent;
+    private String tempHarbor;
+    private String tempDestination;
 
-
-
-    private String tempDestination ="Enter destination";
     private ArrayList<Load> loads = new ArrayList<Load>();
 
-    public void registerLoad(){
+    public String registerLoad(){
         controller.insertLoad(tempContent, tempHarbor,tempDestination);
+        return "mainPage.xhtml";
     }
 
     public ArrayList<Load> getLoads() {
