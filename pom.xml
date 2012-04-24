@@ -15,6 +15,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <userName>${env.FLYWAY_USER}</userName>
         <password>${env.FLYWAY_PASSWORD}</password>
+        <url>${env.FLYWAY_URL}</url>
     </properties>
 
     <dependencies>
@@ -80,7 +81,7 @@
                     <user> ${userName} </user>
                     <password> ${password} </password>
                     <driver>org.postgresql.Driver</driver>
-                    <url>jdbc:postgresql://localhost/loadPlanner</url>
+                    <url>${url}</url>
                 </configuration>
             </plugin>
 
