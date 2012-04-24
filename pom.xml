@@ -13,9 +13,10 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <url>${env.FLYWAY_URL}</url>
         <userName>${env.FLYWAY_USER}</userName>
         <password>${env.FLYWAY_PASSWORD}</password>
-        <url>${env.FLYWAY_URL}</url>
+
     </properties>
 
     <dependencies>
