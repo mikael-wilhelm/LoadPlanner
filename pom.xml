@@ -83,6 +83,17 @@
                     <driver>org.postgresql.Driver</driver>
                     <url>${url}</url>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>dbMigration</id>
+                        <goals>
+                            <goal>clean</goal>
+                            <goal>migrate</goal>
+                        </goals>
+                        <phase>generate-sources</phase>
+                    </execution>
+                </executions>
+
             </plugin>
 
             <plugin>
