@@ -13,6 +13,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <userName>${env.FLYWAY_USER}</userName>
+        <password>${env.FLYWAY_PASSWORD}</password>
     </properties>
 
     <dependencies>
@@ -59,14 +61,28 @@
             <artifactId>postgresql</artifactId>
             <version>9.0-801.jdbc4</version>
         </dependency>
+        <dependency>
+            <groupId>com.googlecode.flyway</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>1.6.1</version>
+        </dependency>
     </dependencies>
 
 
     <build>
         <plugins>
 
-
-
+            <plugin>
+                <groupId>com.googlecode.flyway</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>1.6.1</version>
+                <configuration>
+                    <user> ${userName} </user>
+                    <password> ${password} </password>
+                    <driver>org.postgresql.Driver</driver>
+                    <url>jdbc:postgresql://localhost/loadPlanner</url>
+                </configuration>
+            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

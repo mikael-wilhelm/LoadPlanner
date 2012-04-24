@@ -18,6 +18,7 @@ public class LoadDAOPostgres implements LoadDAO {
         String username = dbUri.getUserInfo().split(":")[0];
         String password = dbUri.getUserInfo().split(":")[1];
         String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + dbUri.getPath();
+        System.out.println(dbUrl);
         return DriverManager.getConnection(dbUrl, username, password);
     }
 
