@@ -79,7 +79,7 @@
                 <version>1.6.1</version>
                 <configuration>
                     <driver>org.postgresql.Driver</driver>
-                    <url>${url}</url>
+                    <url>${env.SHARED_DATABASE_URL}</url>
                     <user> ${userName} </user>
                     <password> ${password} </password>
                 </configuration>
