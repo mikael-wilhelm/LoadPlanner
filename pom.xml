@@ -79,7 +79,7 @@
                 <version>1.6.1</version>
                 <configuration>
                     <driver>org.postgresql.Driver</driver>
-                    <url>${url}</url>
+                    <url>jdbc:postgres://ec2-23-21-144-183.compute-1.amazonaws.com/almhyzdzgy</url>
                     <user> ${userName} </user>
                     <password> ${password} </password>
                 </configuration>
