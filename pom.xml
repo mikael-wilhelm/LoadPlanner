@@ -80,8 +80,8 @@
                 <configuration>
                     <driver>org.postgresql.Driver</driver>
                     <url>jdbc:postgres://ec2-23-21-144-183.compute-1.amazonaws.com/almhyzdzgy</url>
-                    <user> ${userName} </user>
-                    <password> ${password} </password>
+                    <user> almhyzdzgy </user>
+                    <password> JTI3KUWUuaXn1yGlyEdh </password>
                 </configuration>
                 <executions>
                     <execution>
