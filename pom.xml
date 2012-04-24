@@ -13,7 +13,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <url>${env.FLYWAY_URL}</url>
+        <url>${env.SHARED_DATABASE_URL}</url>
         <userName>${env.FLYWAY_USER}</userName>
         <password>${env.FLYWAY_PASSWORD}</password>
 
@@ -79,7 +79,7 @@
                 <version>1.6.1</version>
                 <configuration>
                     <driver>org.postgresql.Driver</driver>
-                    <url>${env.SHARED_DATABASE_URL}</url>
+                    <url>${url}</url>
                     <user> ${userName} </user>
                     <password> ${password} </password>
                 </configuration>
