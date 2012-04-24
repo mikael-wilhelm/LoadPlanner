@@ -29,7 +29,6 @@ public  class LoadDAOHashTable implements LoadDAO {
         return !load.getReserved() && (matcher.equals(load.getHarbor())||matcher.equals(""));
     }
 
-
     public ArrayList<Load> getAllLoads() {
         Loads tempLoads = Loads.getInstance();
         ArrayList<Load> loadsMatching = new ArrayList<Load>();
@@ -37,7 +36,6 @@ public  class LoadDAOHashTable implements LoadDAO {
             loadsMatching.add(load);
         return loadsMatching;
     }
-
 
     public ArrayList<Load> getReservedLoads() {
         Loads tempLoads = Loads.getInstance();
@@ -48,16 +46,10 @@ public  class LoadDAOHashTable implements LoadDAO {
         return loadsMatching;
     }
 
-    public void clearAllEntries(){
-        Loads.getInstance().clearAllEntries();
-    }
-
-
     public Load updateLoad(Load load) {
         Loads.getInstance().updateLoad(load);
         return load;
     }
-
 
     public Load getLoad(int loadID) throws LoadNotFoundException {
         Load load = Loads.getInstance().getLoad(loadID);

@@ -25,8 +25,6 @@ public class ControllerTest {
         controller.setDAO(new LoadDAOHashTable());
     }
 
-
-
     @Test
     public void insertLoadsTest() throws Exception {
         //SUT
@@ -42,7 +40,6 @@ public class ControllerTest {
 
         Loads.getInstance().clearAllEntries();
     }
-
 
     @Test
     public void reserveLoadByIDTest()throws Exception{

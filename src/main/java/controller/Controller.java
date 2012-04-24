@@ -23,7 +23,15 @@ public class Controller {
     }
 
     public ArrayList<Load> getReservedLoads(){
-        return loadDAO.getReservedLoads();
+        ArrayList<Load> tempLoads = new ArrayList<Load>();
+        try {
+            tempLoads = loadDAO.getReservedLoads();
+        } catch (SQLException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (URISyntaxException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        return tempLoads;
     }
 
 
@@ -34,7 +42,13 @@ public class Controller {
 
     public void reserveLoad(Load load){
         load.setReserved(true);
-        loadDAO.updateLoad(load);
+        try {
+            loadDAO.updateLoad(load);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 
     public ArrayList<Load> getAllLoads() throws Exception {

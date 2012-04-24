@@ -7,12 +7,6 @@ public class Load {
     private boolean reserved = false;
     private String destination;
 
-    public Load(String content, String harbor, int id) {
-        this.content = content;
-        this.harbor = harbor;
-        this.id = id;
-    }
-
     public Load( int id, String content, String harbor, String destination) {
         this.content = content;
         this.harbor = harbor;
