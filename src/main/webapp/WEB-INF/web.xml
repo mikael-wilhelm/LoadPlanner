@@ -5,11 +5,6 @@
         <load-on-startup>2</load-on-startup>
     </servlet>
 
-    <servlet>
-        <servlet-name>Start Up Servlet</servlet-name>
-        <servlet-class>servlet.StartUpServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
 
 
 
@@ -37,10 +32,6 @@
         <url-pattern>*.jsf</url-pattern>
     </servlet-mapping>
 
-    <servlet-mapping>
-        <servlet-name>Start Up Servlet</servlet-name>
-        <url-pattern>*.*</url-pattern>
-    </servlet-mapping>
 
     <welcome-file-list>
         <welcome-file>faces/mainPage.xhtml</welcome-file>

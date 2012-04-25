@@ -21,18 +21,6 @@ public class StartUpServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res)  {
 
-        try {
-            URI dbUri = new URI(System.getenv("SHARED_DATABASE_URL"));
-            String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + dbUri.getPath();
-            Driver driver = new org.postgresql.Driver();
-            SimpleDriverDataSource dataSource = new SimpleDriverDataSource(driver,dbUrl );
-            dataSource.setUsername(dbUri.getUserInfo().split(":")[0]);
-            dataSource.setPassword(dbUri.getUserInfo().split(":")[1]);
-            Flyway flyway = new Flyway();
-            flyway.setDataSource(dataSource);
-            flyway.migrate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
     }
 }
