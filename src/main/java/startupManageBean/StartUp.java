@@ -8,19 +8,14 @@ import javax.faces.bean.ManagedBean;
 import java.net.URI;
 import java.sql.Driver;
 
-/**
- * Created by IntelliJ IDEA.
- * User: mikael.lof
- * Date: 2012-04-25
- * Time: 09:53
- * To change this template use File | Settings | File Templates.
- */
+
 @ManagedBean(eager = true)
 @ApplicationScoped
 public class StartUp {
     public StartUp(){
         try {
             URI dbUri = new URI(System.getenv("SHARED_DATABASE_URL"));
+            System.out.println(dbUri.toString());
             String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + dbUri.getPath();
             Driver driver = new org.postgresql.Driver();
             SimpleDriverDataSource dataSource = new SimpleDriverDataSource(driver,dbUrl );
