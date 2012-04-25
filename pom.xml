@@ -13,9 +13,6 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <url>${env.SHARED_DATABASE_URL}</url>
-        <userName>${env.FLYWAY_USER}</userName>
-        <password>${env.FLYWAY_PASSWORD}</password>
 
     </properties>
 
@@ -72,29 +69,6 @@
 
     <build>
         <plugins>
-
-            <plugin>
-                <groupId>com.googlecode.flyway</groupId>
-                <artifactId>flyway-maven-plugin</artifactId>
-                <version>1.6.1</version>
-                <configuration>
-                    <driver>org.postgresql.Driver</driver>
-                    <url>jdbc:postgres://ec2-23-21-144-183.compute-1.amazonaws.com/almhyzdzgy</url>
-                    <user> almhyzdzgy </user>
-                    <password> JTI3KUWUuaXn1yGlyEdh </password>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>dbMigration</id>
-                        <goals>
-                            <goal>clean</goal>
-                            <goal>migrate</goal>
-                        </goals>
-                        <phase>generate-sources</phase>
-                    </execution>
-                </executions>
-
-            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
