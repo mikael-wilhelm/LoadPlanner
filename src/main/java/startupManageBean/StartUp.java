@@ -15,7 +15,7 @@ public class StartUp {
     public StartUp(){
         try {
             URI dbUri = new URI(System.getenv("SHARED_DATABASE_URL"));
-            System.out.println(dbUri.toString());
+            System.out.println("test: " + dbUri.toString());
             String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + dbUri.getPath();
             Driver driver = new org.postgresql.Driver();
             SimpleDriverDataSource dataSource = new SimpleDriverDataSource(driver,dbUrl );
