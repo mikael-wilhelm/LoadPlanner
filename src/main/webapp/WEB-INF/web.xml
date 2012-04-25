@@ -2,6 +2,7 @@
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>2</load-on-startup>
     </servlet>
 
     <servlet>
@@ -10,10 +11,7 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
 
-    <servlet-mapping>
-        <servlet-name>Start Up Servlet</servlet-name>
-        <url-pattern>/*</url-pattern>
-    </servlet-mapping>
+
 
     <context-param>
         <param-name>javax.faces.CONFIG_FILES</param-name>
@@ -25,9 +23,6 @@
         <param-value>client</param-value>
     </context-param>
 
-
-
-
     <session-config>
         <session-timeout>35</session-timeout>
     </session-config>
@@ -36,9 +31,15 @@
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>/faces/*</url-pattern>
     </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.jsf</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>Start Up Servlet</servlet-name>
+        <url-pattern>*.*</url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>
