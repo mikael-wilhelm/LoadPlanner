@@ -15,12 +15,15 @@ public class StartUp {
     public StartUp(){
         try {
             URI dbUri = new URI(System.getenv("SHARED_DATABASE_URL"));
-            System.out.println("test: " + dbUri.toString());
+
             String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + dbUri.getPath();
             Driver driver = new org.postgresql.Driver();
             SimpleDriverDataSource dataSource = new SimpleDriverDataSource(driver,dbUrl );
+            String password = dbUri.getUserInfo().split(":")[1];
+            System.out.println(password);
             dataSource.setUsername(dbUri.getUserInfo().split(":")[0]);
-            dataSource.setPassword(dbUri.getUserInfo().split(":")[1]);
+            dataSource.setPassword(password);
+
             Flyway flyway = new Flyway();
             flyway.setDataSource(dataSource);
             flyway.migrate();
