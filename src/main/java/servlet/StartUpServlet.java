@@ -22,13 +22,13 @@ public class StartUpServlet extends HttpServlet {
         try {
             Driver driver = new org.postgresql.Driver();
             SimpleDriverDataSource dataSource = new SimpleDriverDataSource(driver,dbUrl );
-            dataSource.setUsername("postgres");
-            dataSource.setPassword("Dataparm1");
+            dataSource.setUsername(dbUri.getUserInfo().split(":")[0]);
+            dataSource.setPassword(dbUri.getUserInfo().split(":")[1]);
             Flyway flyway = new Flyway();
             flyway.setDataSource(dataSource);
             flyway.migrate();
         } catch (Exception e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         }
     }
 }
