@@ -2,7 +2,7 @@ package showBeans;
 
 import controller.Controller;
 import database.NoSuchUserNameException;
-import database.WrongPasswordException;
+import database.PasswordException;
 import model.User;
 import sessionBeans.UserSessionBean;
 
@@ -26,7 +26,7 @@ public class LogInBean {
             return "showLoads.xhtml";
         } catch (NoSuchUserNameException e) {
             return "logIn.xhtml";
-        } catch (WrongPasswordException e) {
+        } catch (PasswordException e) {
             return "logIn.xhtml";
         }
     }

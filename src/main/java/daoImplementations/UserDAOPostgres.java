@@ -1,7 +1,7 @@
 package daoImplementations;
 
 import database.NoSuchUserNameException;
-import database.WrongPasswordException;
+import database.PasswordException;
 import databaseAccess.UserDAO;
 import model.User;
 
@@ -19,7 +19,7 @@ public class UserDAOPostgres implements UserDAO{
     }
 
     @Override
-    public User authenticate(String userName, String password) throws NoSuchUserNameException, WrongPasswordException {
+    public User authenticate(String userName, String password) throws NoSuchUserNameException, PasswordException {
         User tempUser = getUser(userName);
         try{
             if(tempUser.getPassword().equals(password))

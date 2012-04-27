@@ -26,14 +26,14 @@ public class Users {
             return null;
     }
 
-    public User authenticate(String userName, String password) throws NoSuchUserNameException,WrongPasswordException {
+    public User authenticate(String userName, String password) throws NoSuchUserNameException,PasswordException {
         User tempUser = new User(userName,userList.get(userName));
         if(tempUser.getPassword() == null)
             throw new NoSuchUserNameException();
         else if(tempUser.getPassword().equals(password))
             return tempUser;
         else
-            throw new WrongPasswordException();
+            throw new PasswordException();
     }
 
     public void clearAllUsers() {

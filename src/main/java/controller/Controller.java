@@ -3,7 +3,7 @@ package controller;
 import daoImplementations.LoadDAOPostgres;
 import daoImplementations.UserDAOPostgres;
 import database.NoSuchUserNameException;
-import database.WrongPasswordException;
+import database.PasswordException;
 import databaseAccess.LoadDAO;
 import databaseAccess.LoadNotFoundException;
 import databaseAccess.UserDAO;
@@ -67,7 +67,7 @@ public class Controller {
         this.userDAO = userDAO;
     }
 
-    public User authenticate(String userName, String password) throws NoSuchUserNameException, WrongPasswordException {
+    public User authenticate(String userName, String password) throws NoSuchUserNameException, PasswordException {
         return userDAO.authenticate(userName,password);
     }
 

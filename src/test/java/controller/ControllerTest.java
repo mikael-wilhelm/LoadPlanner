@@ -4,8 +4,8 @@ import daoImplementations.LoadDAOHashTable;
 import daoImplementations.UserDAOHashTable;
 import database.Loads;
 import database.NoSuchUserNameException;
+import database.PasswordException;
 import database.Users;
-import database.WrongPasswordException;
 import model.Load;
 import model.User;
 import org.junit.After;
@@ -98,7 +98,7 @@ public class ControllerTest {
     }
 
     @Test
-    public void authenticate() throws NoSuchUserNameException, WrongPasswordException {
+    public void authenticate() throws NoSuchUserNameException, PasswordException {
         Users.getInstance().registerUser("foo", "bar");
         User user = controller.authenticate("foo", "bar");
 
@@ -107,14 +107,14 @@ public class ControllerTest {
         assertThat(user, is(expectedUser));
     }
 
-    @Test (expected = WrongPasswordException.class)
-    public void wrongAuthenticate() throws NoSuchUserNameException, WrongPasswordException {
+    @Test (expected = PasswordException.class)
+    public void wrongAuthenticate() throws NoSuchUserNameException, PasswordException {
         Users.getInstance().registerUser("foo", "bar");
         User user = controller.authenticate("foo", "barr");
     }
 
     @Test
-    public void registerUserTest() throws NoSuchUserNameException, WrongPasswordException {
+    public void registerUserTest() throws NoSuchUserNameException, PasswordException {
         controller.registerUser("foo", "bar");
 
         User user = controller.authenticate("foo","bar");
