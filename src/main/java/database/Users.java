@@ -26,7 +26,7 @@ public class Users {
             return null;
     }
 
-    public User authenticate(String userName, String password) throws NoSuchUserNameException,WrongPasswordException{
+    public User authenticate(String userName, String password) throws NoSuchUserNameException,WrongPasswordException {
         User tempUser = new User(userName,userList.get(userName));
         if(tempUser.getPassword() == null)
             throw new NoSuchUserNameException();

@@ -1,6 +1,5 @@
 package daoImplementations;
 
-import database.Loads;
 import database.NoSuchUserNameException;
 import database.Users;
 import database.WrongPasswordException;

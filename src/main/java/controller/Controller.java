@@ -1,12 +1,8 @@
 package controller;
 
-import daoImplementations.LoadDAOHashTable;
 import daoImplementations.LoadDAOPostgres;
-import daoImplementations.UserDAOHashTable;
 import daoImplementations.UserDAOPostgres;
-import database.Loads;
 import database.NoSuchUserNameException;
-import database.Users;
 import database.WrongPasswordException;
 import databaseAccess.LoadDAO;
 import databaseAccess.LoadNotFoundException;

@@ -6,12 +6,9 @@ import database.WrongPasswordException;
 import model.User;
 import sessionBeans.UserSessionBean;
 
-import javax.el.ValueExpression;
-import javax.faces.application.Application;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
 
 @ManagedBean
 @RequestScoped

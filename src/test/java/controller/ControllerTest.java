@@ -1,15 +1,11 @@
 package controller;
 
-import com.sun.jmx.snmp.UserAcl;
 import daoImplementations.LoadDAOHashTable;
-import daoImplementations.LoadDAOPostgres;
 import daoImplementations.UserDAOHashTable;
-import daoImplementations.UserDAOPostgres;
 import database.Loads;
 import database.NoSuchUserNameException;
 import database.Users;
 import database.WrongPasswordException;
-import databaseAccess.LoadNotFoundException;
 import model.Load;
 import model.User;
 import org.junit.After;
