@@ -20,11 +20,11 @@ public class StartUp {
             Driver driver = new org.postgresql.Driver();
             SimpleDriverDataSource dataSource = new SimpleDriverDataSource(driver,dbUrl );
             String password = dbUri.getUserInfo().split(":")[1];
-            System.out.println(password);
             dataSource.setUsername(dbUri.getUserInfo().split(":")[0]);
             dataSource.setPassword(password);
 
             Flyway flyway = new Flyway();
+            flyway.setBaseDir("db/migration");
             flyway.setDataSource(dataSource);
             flyway.migrate();
         } catch (Exception e) {

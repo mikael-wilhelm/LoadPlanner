@@ -2,6 +2,7 @@ package showBeans;
 
 import controller.Controller;
 import model.Load;
+import sessionBeans.UserSessionBean;
 
 import javax.faces.bean.*;
 import java.util.ArrayList;
@@ -14,20 +15,20 @@ public class RegisterLoadsManageBean {
     private String tempContent;
     private String tempHarbor;
     private String tempDestination;
-
     private ArrayList<Load> loads = new ArrayList<Load>();
+    @ManagedProperty(value="#{userSessionBean}")
+    private UserSessionBean loggedInUser;
 
-    public String registerLoad(){
+    public void registerLoad(){
         try {
             controller.insertLoad(tempContent, tempHarbor,tempDestination);
         } catch (Exception e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         }
-        return "mainPage.xhtml";
     }
 
     public ArrayList<Load> getLoads() {
-        loads = controller.getReservedLoads();
+        loads = controller.getReservedLoads(loggedInUser.getLoggedInUser());
         return loads;
     }
 
@@ -55,4 +56,7 @@ public class RegisterLoadsManageBean {
         this.tempDestination = tempDestination;
     }
 
+    public void setLoggedInUser(UserSessionBean loggedInUser) {
+        this.loggedInUser = loggedInUser;
+    }
 }

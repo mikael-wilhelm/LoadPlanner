@@ -3,15 +3,16 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
 <head>
     <title></title>
 </head>
+<f:event listener="#{userSessionBean.checkUser}" type="preRenderView" />
 <body>
 
+<ui:include src="menu.xhtml" />
 
-
-<h:panelGroup layout="block" style="border: 1px solid;padding:3px;  position:relative; float:left; left:10px; top:5px; ">
+<h:panelGroup layout="block" style=" float:left; position:relative; left:400px; top:100px">
     Register Loads
     <h:form id="registerLoadForm" >
         <table>

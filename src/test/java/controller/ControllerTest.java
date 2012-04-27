@@ -1,10 +1,17 @@
 package controller;
 
+import com.sun.jmx.snmp.UserAcl;
 import daoImplementations.LoadDAOHashTable;
 import daoImplementations.LoadDAOPostgres;
+import daoImplementations.UserDAOHashTable;
+import daoImplementations.UserDAOPostgres;
 import database.Loads;
+import database.NoSuchUserNameException;
+import database.Users;
+import database.WrongPasswordException;
 import databaseAccess.LoadNotFoundException;
 import model.Load;
+import model.User;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,6 +30,7 @@ public class ControllerTest {
     public void initTests(){
         controller = new Controller();
         controller.setDAO(new LoadDAOHashTable());
+        controller.setUserDAO(new UserDAOHashTable());
     }
 
     @Test
@@ -46,16 +54,22 @@ public class ControllerTest {
 
         Load expectedNotReservedLoad = controller.insertLoad("LoadNotResContent", "LoadNotResHarbor","LoadNotResDest");
         Load expectedReservedLoad = controller.insertLoad("LoadResContent", "LoadResHarbor","loadResDest");
+        Load expectedReservedLoadByOtherUser = controller.insertLoad("LoadResContent", "LoadResHarbor","loadResDest");
+
         int loadToReserveId = expectedReservedLoad.getId();
+        int loadToReserveId2 = expectedReservedLoadByOtherUser.getId();
 
+        User user = new User("foo","bar");
+        User user2 = new User("foo2","bar2");
         // SUT
-        controller.reserveLoad(loadToReserveId);
+        controller.reserveLoad(loadToReserveId,user);
+        controller.reserveLoad(loadToReserveId2,user2);
 
-        assertThatOneLoadIsReserved(expectedNotReservedLoad, expectedReservedLoad);
+        assertThatOneLoadIsReserved(user, expectedNotReservedLoad, expectedReservedLoad);
     }
 
-    private void assertThatOneLoadIsReserved(Load expectedNotReservedLoad, Load expectedReservedLoad) throws SQLException, URISyntaxException {
-        ArrayList<Load> reservedLoads = controller.getReservedLoads();
+    private void assertThatOneLoadIsReserved(User user, Load expectedNotReservedLoad, Load expectedReservedLoad) throws SQLException, URISyntaxException {
+        ArrayList<Load> reservedLoads = controller.getReservedLoads(user);
         ArrayList<Load> notReservedLoads = controller.getNotReservedLoadsFilteredByHarbor("");
 
         int reservedLoadsSize = reservedLoads.size();
@@ -87,9 +101,36 @@ public class ControllerTest {
         assertThat(resultFilteredLoadsSize, is(expectedSize));
     }
 
+    @Test
+    public void authenticate() throws NoSuchUserNameException, WrongPasswordException {
+        Users.getInstance().registerUser("foo", "bar");
+        User user = controller.authenticate("foo", "bar");
+
+        User expectedUser = new User("foo", "bar");
+
+        assertThat(user, is(expectedUser));
+    }
+
+    @Test (expected = WrongPasswordException.class)
+    public void wrongAuthenticate() throws NoSuchUserNameException, WrongPasswordException {
+        Users.getInstance().registerUser("foo", "bar");
+        User user = controller.authenticate("foo", "barr");
+    }
+
+    @Test
+    public void registerUserTest() throws NoSuchUserNameException, WrongPasswordException {
+        controller.registerUser("foo", "bar");
+
+        User user = controller.authenticate("foo","bar");
+
+        User expectedUser = new User("foo", "bar");
+
+        assertThat(user, is(expectedUser));
+    }
 
     @After
     public void tearDown() {
         Loads.getInstance().clearAllEntries();
+        Users.getInstance().clearAllUsers();
     }
 }

@@ -6,8 +6,6 @@
     </servlet>
 
 
-
-
     <context-param>
         <param-name>javax.faces.CONFIG_FILES</param-name>
         <param-value>/WEB-INF/faces-config.xml</param-value>
@@ -34,7 +32,7 @@
 
 
     <welcome-file-list>
-        <welcome-file>faces/mainPage.xhtml</welcome-file>
+        <welcome-file>faces/logIn.xhtml</welcome-file>
     </welcome-file-list>
 
 </web-app>

@@ -6,6 +6,7 @@ public class Load {
     private int id;
     private boolean reserved = false;
     private String destination;
+    private User reservedByUser;
 
     public Load( int id, String content, String harbor, String destination) {
         this.content = content;
@@ -69,5 +70,13 @@ public class Load {
     @Override
     public int hashCode() {
         return id;
+    }
+
+    public void setReservedBy(User user) {
+        reservedByUser = user;
+    }
+
+    public User getReservedBy(){
+        return reservedByUser;
     }
 }

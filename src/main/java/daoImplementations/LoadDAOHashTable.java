@@ -5,9 +5,9 @@ import databaseAccess.LoadDAO;
 import databaseAccess.LoadNotFoundException;
 import model.Load;
 import database.Loads;
+import model.User;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public  class LoadDAOHashTable implements LoadDAO {
 
@@ -37,11 +37,11 @@ public  class LoadDAOHashTable implements LoadDAO {
         return loadsMatching;
     }
 
-    public ArrayList<Load> getReservedLoads() {
+    public ArrayList<Load> getReservedLoads(User user) {
         Loads tempLoads = Loads.getInstance();
         ArrayList<Load> loadsMatching = new ArrayList<Load>();
         for(Load load : tempLoads.getLoads().values())
-            if(load.getReserved())
+            if(load.getReserved() && load.getReservedBy().equals(user))
                 loadsMatching.add(load);
         return loadsMatching;
     }

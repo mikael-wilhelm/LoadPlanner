@@ -3,6 +3,7 @@ package daoImplementations;
 import databaseAccess.LoadDAO;
 import databaseAccess.LoadNotFoundException;
 import model.Load;
+import model.User;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -51,12 +52,14 @@ public class LoadDAOPostgres implements LoadDAO {
     @Override
     public Load updateLoad(Load load) throws SQLException, URISyntaxException {
         Connection connection = getConnection();
-        PreparedStatement ps = connection.prepareStatement("UPDATE loads SET content=?, harbor=?, destination=?, reserved=? WHERE id=?;");
+        PreparedStatement ps = connection.prepareStatement("UPDATE loads SET content=?, harbor=?, destination=?, reserved=?,reservedBy=? WHERE id=?;");
         ps.setString(1, load.getContent());
         ps.setString(2,load.getHarbor());
         ps.setString(3,load.getDestination());
         ps.setBoolean(4,load.getReserved());
-        ps.setInt(5,load.getId());
+        ps.setString(5,load.getReservedBy().toString());
+        ps.setInt(6,load.getId());
+
         ps.execute();
         connection.close();
         return load;
@@ -74,9 +77,10 @@ public class LoadDAOPostgres implements LoadDAO {
     }
 
     @Override
-    public ArrayList<Load> getReservedLoads() throws SQLException, URISyntaxException {
+    public ArrayList<Load> getReservedLoads(User user) throws SQLException, URISyntaxException {
         Connection connection = getConnection();
-        PreparedStatement ps = connection.prepareStatement("SELECT id FROM loads WHERE reserved=TRUE;");
+        PreparedStatement ps = connection.prepareStatement("SELECT id,reservedBy,userName FROM loads,loadUsers WHERE loads.reservedBy=loadUsers.userName AND reserved=TRUE AND reservedBy = ?;");
+        ps.setString(1,user.getUserName());
         ResultSet rs = ps.executeQuery();
         ArrayList<Load> tempLoads = new ArrayList<Load>();
         while(rs.next())
