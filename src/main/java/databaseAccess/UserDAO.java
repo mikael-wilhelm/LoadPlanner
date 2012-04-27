@@ -1,7 +1,7 @@
 package databaseAccess;
 
-import database.NoSuchUserNameException;
-import database.PasswordException;
+import exceptions.NoSuchUserNameException;
+import exceptions.PasswordException;
 import model.User;
 
 public interface UserDAO {

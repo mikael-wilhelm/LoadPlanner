@@ -1,12 +1,12 @@
 package databaseAccess;
 
+import exceptions.LoadNotFoundException;
 import model.Load;
 import model.User;
 
 import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public interface LoadDAO {
     public Load insertLoad(String content, String harbor,String destination) throws Exception;

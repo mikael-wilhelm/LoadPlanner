@@ -1,8 +1,8 @@
 package showBeans;
 
 import controller.Controller;
-import database.NoSuchUserNameException;
-import database.PasswordException;
+import exceptions.NoSuchUserNameException;
+import exceptions.PasswordException;
 import model.User;
 import sessionBeans.UserSessionBean;
 

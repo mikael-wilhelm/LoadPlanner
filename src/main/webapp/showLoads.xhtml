@@ -18,7 +18,8 @@
           <h:inputText value="#{showLoadsManageBean.filter}"/>
           <h:commandButton name ="filterButton" value="Filter"></h:commandButton>
 
-          <h:dataTable id="showLoadsDT" value="#{showLoadsManageBean.notReservedLoads}" var="row" border="5" >
+          <h:dataTable  binding="#{showLoadsManageBean.test}" id="showLoadsDT" value="#{showLoadsManageBean.notReservedLoads}" var="row" border="5" >
+
               <h:column>
                   <f:facet name="header" >Load Id</f:facet>
                   <h:outputText id="content" value="#{row.id}"/>
@@ -26,8 +27,7 @@
 
               <h:column>
                   <f:facet name="header" >Load Content</f:facet>
-                  <h:commandLink  action="#{showLoadsManageBean.reserveLoad}" value="#{row.content}">
-                    <f:setPropertyActionListener target="#{showLoadsManageBean.tempID}" value="#{row.id}" />
+                  <h:commandLink  id="cmd" value="#{row.content}">
                   </h:commandLink>
 
               </h:column>
@@ -42,11 +42,23 @@
                   <h:outputText value="#{row.destination}"/>
               </h:column>
 
+              <h:column>
+            <h:commandButton value="Book" action="#{showLoadsManageBean.reserveLoad}">
+
+            </h:commandButton>
+        </h:column>
+
           </h:dataTable>
 
       </h:form>
+    <h:messages></h:messages>
 </h:panelGroup>
 
+<h:dataTable>
+
+
+
+</h:dataTable>
 
 </body>
 </html>

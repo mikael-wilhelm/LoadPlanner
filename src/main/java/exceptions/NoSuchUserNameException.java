@@ -1,4 +1,4 @@
-package database;
+package exceptions;
 
 public class NoSuchUserNameException extends Exception{
 

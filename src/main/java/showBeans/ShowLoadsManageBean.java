@@ -1,14 +1,19 @@
 package showBeans;
 
 import controller.Controller;
-import databaseAccess.LoadNotFoundException;
+import exceptions.LoadAlreadyReservedException;
+import exceptions.LoadNotFoundException;
 import model.Load;
 import sessionBeans.UserSessionBean;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
+import javax.faces.component.html.HtmlDataTable;
+import javax.faces.context.FacesContext;
+import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,17 +28,23 @@ public class ShowLoadsManageBean {
     private String tempID ="test";
     @ManagedProperty(value="#{userSessionBean}")
     private UserSessionBean loggedInUser;
+    private HtmlDataTable test = new HtmlDataTable();
 
     public void reserveLoad(){
-         try{
-            controller.reserveLoad(Integer.parseInt(tempID),loggedInUser.getLoggedInUser());
-         }
-         catch(LoadNotFoundException ignored){
-         } catch (SQLException e) {
-             e.printStackTrace();
-         } catch (URISyntaxException e) {
-             e.printStackTrace();
-         }
+        FacesMessage doneMessage = null;
+        try{
+            controller.reserveLoad(((Load)test.getRowData()).getId(),loggedInUser.getLoggedInUser());
+            doneMessage = new FacesMessage("Load reserved");
+        }
+        catch(LoadNotFoundException ignored){
+        } catch (SQLException e) {
+            doneMessage = new FacesMessage("SQL error");
+        } catch (URISyntaxException e) {
+            doneMessage = new FacesMessage("SQL error");
+        } catch (LoadAlreadyReservedException e) {
+            doneMessage = new FacesMessage("The Load is already reserved");
+        }
+        FacesContext.getCurrentInstance().addMessage(null,doneMessage);
     }
 
     public String getTempID() {
@@ -70,4 +81,19 @@ public class ShowLoadsManageBean {
     public void setLoggedInUser(UserSessionBean loggedInUser) {
         this.loggedInUser = loggedInUser;
     }
+
+    public HtmlDataTable getTest() {
+        return test;
+    }
+
+    public void setTest(HtmlDataTable test) {
+        this.test = test;
+    }
+    public void test(){
+        System.out.println(test.getRowIndex());
+    }
+
+
+
+
 }

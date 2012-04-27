@@ -1,4 +1,4 @@
-package databaseAccess;
+package exceptions;
 
 
 public class LoadNotFoundException extends Exception{

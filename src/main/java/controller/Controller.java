@@ -2,10 +2,11 @@ package controller;
 
 import daoImplementations.LoadDAOPostgres;
 import daoImplementations.UserDAOPostgres;
-import database.NoSuchUserNameException;
-import database.PasswordException;
+import exceptions.LoadAlreadyReservedException;
+import exceptions.NoSuchUserNameException;
+import exceptions.PasswordException;
 import databaseAccess.LoadDAO;
-import databaseAccess.LoadNotFoundException;
+import exceptions.LoadNotFoundException;
 import databaseAccess.UserDAO;
 import model.Load;
 import model.User;
@@ -33,14 +34,17 @@ public class Controller {
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (URISyntaxException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         }
         return tempLoads;
     }
 
-    public void reserveLoad(int loadID, User user) throws LoadNotFoundException, SQLException, URISyntaxException {
+    public void reserveLoad(int loadID, User user) throws LoadAlreadyReservedException, LoadNotFoundException, SQLException, URISyntaxException {
         Load load = loadDAO.getLoad(loadID);
-        reserveLoad(load,user);
+        if(load.getReserved())
+            throw new LoadAlreadyReservedException();
+        else
+            reserveLoad(load,user);
     }
 
     public void reserveLoad(Load load, User user){

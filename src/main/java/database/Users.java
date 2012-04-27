@@ -1,5 +1,7 @@
 package database;
 
+import exceptions.NoSuchUserNameException;
+import exceptions.PasswordException;
 import model.User;
 
 import java.util.HashMap;

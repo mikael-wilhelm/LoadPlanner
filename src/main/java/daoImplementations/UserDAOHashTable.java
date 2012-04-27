@@ -1,8 +1,8 @@
 package daoImplementations;
 
-import database.NoSuchUserNameException;
+import exceptions.NoSuchUserNameException;
 import database.Users;
-import database.PasswordException;
+import exceptions.PasswordException;
 import databaseAccess.UserDAO;
 import model.User;
 

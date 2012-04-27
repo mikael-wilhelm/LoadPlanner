@@ -1,7 +1,7 @@
 package daoImplementations;
 
 import databaseAccess.LoadDAO;
-import databaseAccess.LoadNotFoundException;
+import exceptions.LoadNotFoundException;
 import model.Load;
 import model.User;
 
