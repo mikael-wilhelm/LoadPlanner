@@ -12,8 +12,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.component.html.HtmlDataTable;
 import javax.faces.context.FacesContext;
-import java.awt.event.ActionEvent;
-import java.io.IOException;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -25,15 +23,14 @@ public class ShowLoadsManageBean {
     private ArrayList<Load> notReservedLoads = new ArrayList<Load>();
     private Controller controller = new Controller();
     private String filter="";
-    private String tempID ="test";
     @ManagedProperty(value="#{userSessionBean}")
     private UserSessionBean loggedInUser;
-    private HtmlDataTable test = new HtmlDataTable();
+    private HtmlDataTable loadTable = new HtmlDataTable();
 
     public void reserveLoad(){
         FacesMessage doneMessage = null;
         try{
-            controller.reserveLoad(((Load)test.getRowData()).getId(),loggedInUser.getLoggedInUser());
+            controller.reserveLoad(((Load) loadTable.getRowData()).getId(),loggedInUser.getLoggedInUser());
             doneMessage = new FacesMessage("Load reserved");
         }
         catch(LoadNotFoundException ignored){
@@ -45,14 +42,6 @@ public class ShowLoadsManageBean {
             doneMessage = new FacesMessage("The Load is already reserved");
         }
         FacesContext.getCurrentInstance().addMessage(null,doneMessage);
-    }
-
-    public String getTempID() {
-        return tempID;
-    }
-
-    public void setTempID(String tempID) {
-        this.tempID = tempID;
     }
 
     public String getFilter() {
@@ -82,18 +71,11 @@ public class ShowLoadsManageBean {
         this.loggedInUser = loggedInUser;
     }
 
-    public HtmlDataTable getTest() {
-        return test;
+    public HtmlDataTable getLoadTable() {
+        return loadTable;
     }
 
-    public void setTest(HtmlDataTable test) {
-        this.test = test;
+    public void setLoadTable(HtmlDataTable loadTable) {
+        this.loadTable = loadTable;
     }
-    public void test(){
-        System.out.println(test.getRowIndex());
-    }
-
-
-
-
 }

@@ -1,1 +1,1 @@
-ALTER TABLE loads ADD COLUMN test varchar(40);
+ALTER TABLE loads ADD COLUMN loadTable varchar(40);
