@@ -2,6 +2,7 @@ package daoImplementations;
 
 import databaseAccess.LoadDAO;
 import exceptions.LoadNotFoundException;
+import exceptions.ServerException;
 import model.Load;
 import model.User;
 
@@ -43,6 +44,7 @@ public class LoadDAOPostgres implements LoadDAO {
         Connection connection = getConnection();
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT id FROM loads WHERE id="+randInt+";");
+        connection.close();
         if(!rs.next())
             return randInt;
         else
@@ -94,20 +96,22 @@ public class LoadDAOPostgres implements LoadDAO {
     }
 
     @Override
-    public ArrayList<Load> getNotReservedLoadsFilteredByHarbor(String s) throws SQLException, URISyntaxException {
-        Connection connection = getConnection();
-        Statement stmt = connection.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT id FROM loads WHERE reserved=FALSE;");
-        ArrayList<Load> tempLoads = new ArrayList<Load>();
-        while(rs.next())
-            try {
-                tempLoads.add(getLoad(Integer.parseInt(rs.getString("id"))));
-            }
-            catch (LoadNotFoundException e) {
-                e.printStackTrace();
-            }
-        connection.close();
-        return tempLoads;
+    public ArrayList<Load> getNotReservedLoadsFilteredByHarbor(String s) throws ServerException, LoadNotFoundException {
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT id FROM loads WHERE reserved=FALSE;");
+            ArrayList<Load> tempLoads = new ArrayList<Load>();
+            while(rs.next())
+                    tempLoads.add(getLoad(Integer.parseInt(rs.getString("id"))));
+            connection.close();
+            return tempLoads;
+        } catch (URISyntaxException e) {
+            throw new ServerException();
+        } catch (SQLException e) {
+            throw new ServerException();
+        }
     }
 
     @Override

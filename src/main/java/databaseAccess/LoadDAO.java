@@ -1,6 +1,7 @@
 package databaseAccess;
 
 import exceptions.LoadNotFoundException;
+import exceptions.ServerException;
 import model.Load;
 import model.User;
 
@@ -13,7 +14,7 @@ public interface LoadDAO {
     public Load updateLoad(Load load) throws SQLException, URISyntaxException;
     public Load getLoad(int loadID) throws LoadNotFoundException, SQLException, URISyntaxException;
     public ArrayList<Load> getReservedLoads(User user) throws SQLException, URISyntaxException;
-    public ArrayList<Load> getNotReservedLoadsFilteredByHarbor(String s) throws SQLException, URISyntaxException;
+    public ArrayList<Load> getNotReservedLoadsFilteredByHarbor(String s) throws ServerException, LoadNotFoundException;
     public ArrayList<Load> getAllLoads() throws Exception;
 
 }

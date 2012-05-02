@@ -3,9 +3,11 @@ package controller;
 import daoImplementations.LoadDAOHashTable;
 import daoImplementations.UserDAOHashTable;
 import database.Loads;
+import exceptions.LoadNotFoundException;
 import exceptions.NoSuchUserNameException;
 import exceptions.PasswordException;
 import database.Users;
+import exceptions.ServerException;
 import model.Load;
 import model.User;
 import org.junit.After;
@@ -64,7 +66,7 @@ public class ControllerTest {
         assertThatOneLoadIsReserved(user, expectedNotReservedLoad, expectedReservedLoad);
     }
 
-    private void assertThatOneLoadIsReserved(User user, Load expectedNotReservedLoad, Load expectedReservedLoad) throws SQLException, URISyntaxException {
+    private void assertThatOneLoadIsReserved(User user, Load expectedNotReservedLoad, Load expectedReservedLoad) throws LoadNotFoundException, ServerException {
         ArrayList<Load> reservedLoads = controller.getReservedLoads(user);
         ArrayList<Load> notReservedLoads = controller.getNotReservedLoadsFilteredByHarbor("");
 

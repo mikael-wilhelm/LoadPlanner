@@ -2,11 +2,8 @@ package controller;
 
 import daoImplementations.LoadDAOPostgres;
 import daoImplementations.UserDAOPostgres;
-import exceptions.LoadAlreadyReservedException;
-import exceptions.NoSuchUserNameException;
-import exceptions.PasswordException;
+import exceptions.*;
 import databaseAccess.LoadDAO;
-import exceptions.LoadNotFoundException;
 import databaseAccess.UserDAO;
 import model.Load;
 import model.User;
@@ -23,7 +20,7 @@ public class Controller {
         return loadDAO.insertLoad(content, harbor, destination);
     }
 
-    public ArrayList<Load> getNotReservedLoadsFilteredByHarbor(String s) throws SQLException, URISyntaxException {
+    public ArrayList<Load> getNotReservedLoadsFilteredByHarbor(String s) throws ServerException, LoadNotFoundException {
         return loadDAO.getNotReservedLoadsFilteredByHarbor(s);
     }
 
@@ -39,8 +36,15 @@ public class Controller {
         return tempLoads;
     }
 
-    public void reserveLoad(int loadID, User user) throws LoadAlreadyReservedException, LoadNotFoundException, SQLException, URISyntaxException {
-        Load load = loadDAO.getLoad(loadID);
+    public void reserveLoad(int loadID, User user) throws ServerException,LoadAlreadyReservedException, LoadNotFoundException {
+        Load load = null;
+        try {
+            load = loadDAO.getLoad(loadID);
+        } catch (SQLException e) {
+            throw new ServerException();
+        } catch (URISyntaxException e) {
+            throw new ServerException();
+        }
         if(load.getReserved())
             throw new LoadAlreadyReservedException();
         else

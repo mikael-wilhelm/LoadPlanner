@@ -3,6 +3,7 @@ package showBeans;
 import controller.Controller;
 import exceptions.LoadAlreadyReservedException;
 import exceptions.LoadNotFoundException;
+import exceptions.ServerException;
 import model.Load;
 import sessionBeans.UserSessionBean;
 
@@ -33,12 +34,12 @@ public class ShowLoadsManageBean {
             controller.reserveLoad(((Load) loadTable.getRowData()).getId(),loggedInUser.getLoggedInUser());
             doneMessage = new FacesMessage("Load reserved");
         }
+        catch (ServerException se){
+            doneMessage = new FacesMessage("Server Side Error");
+        }
         catch(LoadNotFoundException ignored){
-        } catch (SQLException e) {
-            doneMessage = new FacesMessage("SQL error");
-        } catch (URISyntaxException e) {
-            doneMessage = new FacesMessage("SQL error");
-        } catch (LoadAlreadyReservedException e) {
+        }
+        catch (LoadAlreadyReservedException e) {
             doneMessage = new FacesMessage("The Load is already reserved");
         }
         FacesContext.getCurrentInstance().addMessage(null,doneMessage);
@@ -49,12 +50,11 @@ public class ShowLoadsManageBean {
     }
 
     public ArrayList<Load> getNotReservedLoads() {
+
         try {
             notReservedLoads = controller.getNotReservedLoadsFilteredByHarbor(filter);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
+        } catch (ServerException ignored) {
+        } catch (LoadNotFoundException ignored) {
         }
         return notReservedLoads;
     }
