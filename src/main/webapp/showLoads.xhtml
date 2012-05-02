@@ -29,7 +29,6 @@
                   <f:facet name="header" >Load Content</f:facet>
                   <h:commandLink  id="cmd" value="#{row.content}">
                   </h:commandLink>
-
               </h:column>
 
               <h:column>
@@ -38,15 +37,14 @@
               </h:column>
 
               <h:column>
-                  <f:facet name="header" >DestinationsU</f:facet>
+                  <f:facet name="header" >DestinationsTest</f:facet>
                   <h:outputText value="#{row.destination}"/>
               </h:column>
 
               <h:column>
-            <h:commandButton value="Book" action="#{showLoadsManageBean.reserveLoad}">
-
-            </h:commandButton>
-        </h:column>
+                <h:commandButton value="Book" action="#{showLoadsManageBean.reserveLoad}">
+                </h:commandButton>
+              </h:column>
 
           </h:dataTable>
 
