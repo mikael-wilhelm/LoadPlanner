@@ -112,7 +112,7 @@
 
                     <check>
                         <haltOnFailure>true</haltOnFailure>
-                        <totalLineRate>75</totalLineRate>
+                        <totalLineRate>70</totalLineRate>
                     </check>
                 </configuration>
 
