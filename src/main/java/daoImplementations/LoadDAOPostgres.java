@@ -58,11 +58,6 @@ public class LoadDAOPostgres implements LoadDAO {
             closeStmt(stmt);
             closeConnection(connection);
         }
-        try {
-            connection.close();
-        } catch (SQLException e) {
-
-        }
         return isValid;
     }
 
@@ -169,10 +164,18 @@ public class LoadDAOPostgres implements LoadDAO {
         String username = dbUri.getUserInfo().split(":")[0];
         String password = dbUri.getUserInfo().split(":")[1];
         String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + dbUri.getPath();
+        Connection connection = null;
         try {
-            return DriverManager.getConnection(dbUrl, username, password);
+            connection = DriverManager.getConnection(dbUrl, username, password);
+            return connection;
         } catch (SQLException e) {
             throw new ServerException();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
         }
 
     }
