@@ -58,10 +58,13 @@ public class LoadDAOPostgres implements LoadDAO {
             closeStmt(stmt);
             closeConnection(connection);
         }
+        try {
+            connection.close();
+        } catch (SQLException e) {
+
+        }
         return isValid;
     }
-
-
 
     private Statement getStmt(Connection connection) throws ServerException {
         try {
@@ -69,6 +72,7 @@ public class LoadDAOPostgres implements LoadDAO {
         } catch (SQLException e) {
             throw new ServerException();
         }
+
     }
 
     private void closeStmt(Statement stmt) throws ServerException {
@@ -170,5 +174,6 @@ public class LoadDAOPostgres implements LoadDAO {
         } catch (SQLException e) {
             throw new ServerException();
         }
+
     }
 }
