@@ -5,10 +5,11 @@ import model.Load;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Loads {
     private static Loads loads = new Loads();
-    private HashMap<Integer,Load> loadList = new HashMap<Integer,Load>();
+    private Map<Integer,Load> loadList = new HashMap<Integer,Load>();
     private Loads(){
 
     }
@@ -20,13 +21,7 @@ public class Loads {
 
     }
 
-    public Load insertLoad(Load load){
-        int newKey = loadList.size();
-        loadList.put(newKey,load);
-        return load;
-    }
-
-    public HashMap<Integer,Load> getLoads(){
+    public Map<Integer,Load> getLoads(){
         return loadList;
     }
 
@@ -51,9 +46,5 @@ public class Loads {
 
     public void clearAllEntries(){
         loadList.clear();
-    }
-
-    public int size(){
-        return loadList.size();
     }
 }

@@ -5,9 +5,10 @@ import exceptions.PasswordException;
 import model.User;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class Users {
-    private HashMap<String, String> userList = new HashMap<String, String> ();
+    private Map<String, String> userList = new HashMap<String, String> ();
     private static Users users = new Users();
 
     private Users(){

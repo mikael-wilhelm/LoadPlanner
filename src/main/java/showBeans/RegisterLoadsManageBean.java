@@ -1,11 +1,13 @@
 package showBeans;
 
 import controller.Controller;
+import exceptions.LoadNotFoundException;
 import model.Load;
 import sessionBeans.UserSessionBean;
 
 import javax.faces.bean.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @ManagedBean
 @RequestScoped
@@ -15,7 +17,7 @@ public class RegisterLoadsManageBean {
     private String tempContent;
     private String tempHarbor;
     private String tempDestination;
-    private ArrayList<Load> loads = new ArrayList<Load>();
+    private List<Load> loads = new ArrayList<Load>();
     @ManagedProperty(value="#{userSessionBean}")
     private UserSessionBean loggedInUser;
 
@@ -27,8 +29,12 @@ public class RegisterLoadsManageBean {
         }
     }
 
-    public ArrayList<Load> getLoads() {
-        loads = controller.getReservedLoads(loggedInUser.getLoggedInUser());
+    public List<Load> getLoads() {
+        try {
+            loads = controller.getReservedLoads(loggedInUser.getLoggedInUser());
+        } catch (LoadNotFoundException ignored) {
+
+        }
         return loads;
     }
 

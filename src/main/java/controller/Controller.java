@@ -11,6 +11,7 @@ import model.User;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Controller {
     private LoadDAO loadDAO = new LoadDAOPostgres();
@@ -20,12 +21,12 @@ public class Controller {
         return loadDAO.insertLoad(content, harbor, destination);
     }
 
-    public ArrayList<Load> getNotReservedLoadsFilteredByHarbor(String s) throws ServerException, LoadNotFoundException {
+    public List<Load> getNotReservedLoadsFilteredByHarbor(String s) throws ServerException, LoadNotFoundException {
         return loadDAO.getNotReservedLoadsFilteredByHarbor(s);
     }
 
-    public ArrayList<Load> getReservedLoads(User user){
-        ArrayList<Load> tempLoads = new ArrayList<Load>();
+    public List<Load> getReservedLoads(User user) throws LoadNotFoundException {
+        List<Load> tempLoads = new ArrayList<Load>();
         try {
             tempLoads = loadDAO.getReservedLoads(user);
         } catch (SQLException e) {
@@ -63,7 +64,7 @@ public class Controller {
         }
     }
 
-    public ArrayList<Load> getAllLoads() throws Exception {
+    public List<Load> getAllLoads() throws Exception {
         return loadDAO.getAllLoads();
     }
 

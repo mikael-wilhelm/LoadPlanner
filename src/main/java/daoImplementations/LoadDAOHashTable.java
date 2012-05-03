@@ -8,6 +8,7 @@ import database.Loads;
 import model.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public  class LoadDAOHashTable implements LoadDAO {
 
@@ -16,9 +17,9 @@ public  class LoadDAOHashTable implements LoadDAO {
     }
 
     @Override
-    public ArrayList<Load> getNotReservedLoadsFilteredByHarbor(String matcher) {
+    public List<Load> getNotReservedLoadsFilteredByHarbor(String matcher) {
         Loads tempLoads = Loads.getInstance();
-        ArrayList<Load> loadsMatching = new ArrayList<Load>();
+        List<Load> loadsMatching = new ArrayList<Load>();
         for(Load load : tempLoads.getLoads().values())
             if(isLoadMatching(load,matcher))
                 loadsMatching.add(load);
@@ -29,17 +30,17 @@ public  class LoadDAOHashTable implements LoadDAO {
         return !load.getReserved() && (matcher.equals(load.getHarbor())||matcher.equals(""));
     }
 
-    public ArrayList<Load> getAllLoads() {
+    public List<Load> getAllLoads() {
         Loads tempLoads = Loads.getInstance();
-        ArrayList<Load> loadsMatching = new ArrayList<Load>();
+        List<Load> loadsMatching = new ArrayList<Load>();
         for(Load load : tempLoads.getLoads().values())
             loadsMatching.add(load);
         return loadsMatching;
     }
 
-    public ArrayList<Load> getReservedLoads(User user) {
+    public List<Load> getReservedLoads(User user) {
         Loads tempLoads = Loads.getInstance();
-        ArrayList<Load> loadsMatching = new ArrayList<Load>();
+        List<Load> loadsMatching = new ArrayList<Load>();
         for(Load load : tempLoads.getLoads().values())
             if(load.getReserved() && load.getReservedBy().equals(user))
                 loadsMatching.add(load);

@@ -18,6 +18,7 @@ import org.junit.Test;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -38,7 +39,7 @@ public class ControllerTest {
         controller.insertLoad("TestContent1", "TestHarbor1","TestDest1");
         controller.insertLoad("TestContent2", "TestHarbor2","TestDest2");
 
-        ArrayList<Load> allLoads = controller.getAllLoads();
+        List<Load> allLoads = controller.getAllLoads();
 
         int result = allLoads.size();
         int expected = 2;
@@ -48,7 +49,7 @@ public class ControllerTest {
         Loads.getInstance().clearAllEntries();
     }
 
-    //@Test
+    @Test
     public void reserveLoadByIDTest()throws Exception{
 
         Load expectedNotReservedLoad = controller.insertLoad("LoadNotResContent", "LoadNotResHarbor","LoadNotResDest");
@@ -68,8 +69,8 @@ public class ControllerTest {
     }
 
     private void assertThatOneLoadIsReserved(User user, Load expectedNotReservedLoad, Load expectedReservedLoad) throws LoadNotFoundException, ServerException {
-        ArrayList<Load> reservedLoads = controller.getReservedLoads(user);
-        ArrayList<Load> notReservedLoads = controller.getNotReservedLoadsFilteredByHarbor("");
+        List<Load> reservedLoads = controller.getReservedLoads(user);
+        List<Load> notReservedLoads = controller.getNotReservedLoadsFilteredByHarbor("");
 
         int reservedLoadsSize = reservedLoads.size();
         int notReservedLoadsSize = notReservedLoads.size();
@@ -92,7 +93,7 @@ public class ControllerTest {
         controller.insertLoad("TestContent", "a","TestDest");
         controller.insertLoad("TestContent", "b","TestDest");
 
-        ArrayList<Load> filteredLoadList = controller.getNotReservedLoadsFilteredByHarbor("a");
+        List<Load> filteredLoadList = controller.getNotReservedLoadsFilteredByHarbor("a");
 
         int resultFilteredLoadsSize = filteredLoadList.size();
         int expectedSize = 2;
@@ -116,7 +117,7 @@ public class ControllerTest {
         User user = controller.authenticate("foo", "barr");
     }
 
-   // @Test
+    @Test
     public void registerUserTest() throws NoSuchUserNameException, PasswordException {
         controller.registerUser("foo", "bar");
 

@@ -16,12 +16,13 @@ import javax.faces.context.FacesContext;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 @ManagedBean
 @RequestScoped
 public class ShowLoadsManageBean {
 
-    private ArrayList<Load> notReservedLoads = new ArrayList<Load>();
+    private List<Load> notReservedLoads = new ArrayList<Load>();
     private Controller controller = new Controller();
     private String filter="";
     @ManagedProperty(value="#{userSessionBean}")
@@ -49,7 +50,7 @@ public class ShowLoadsManageBean {
         return filter;
     }
 
-    public ArrayList<Load> getNotReservedLoads() {
+    public List<Load> getNotReservedLoads() {
 
         try {
             notReservedLoads = controller.getNotReservedLoadsFilteredByHarbor(filter);
@@ -59,7 +60,7 @@ public class ShowLoadsManageBean {
         return notReservedLoads;
     }
 
-    public void setNotReservedLoads(ArrayList<Load> notReservedLoads) {
+    public void setNotReservedLoads(List<Load> notReservedLoads) {
         this.notReservedLoads = notReservedLoads;
     }
 
