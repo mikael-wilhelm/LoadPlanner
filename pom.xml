@@ -91,6 +91,40 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.5.1</version>
+
+                <configuration>
+
+                    <instrumentation>
+                        <excludes>
+                            <exclude>showBeans/*</exclude>
+                            <exclude>sessionBeans/*</exclude>
+                            <exclude>startupManageBean/*</exclude>
+                            <exclude>exceptions/*</exclude>
+                            <exclude>daoImplementations/LoadDAOPostgres.*</exclude>
+                            <exclude>daoImplementations/UserDAOPostgres.*</exclude>
+                        </excludes>
+                    </instrumentation>
+
+                    <check>
+                        <haltOnFailure>true</haltOnFailure>
+                        <totalLineRate>75</totalLineRate>
+                    </check>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>clean</goal>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
