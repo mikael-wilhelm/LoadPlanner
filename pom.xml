@@ -13,7 +13,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
+        <cobertura.runtests>true</cobertura.runtests>
     </properties>
 
     <dependencies>
@@ -111,7 +111,7 @@
                     </instrumentation>
 
                     <check>
-                        <haltOnFailure>true</haltOnFailure>
+                        <haltOnFailure>${cobertura.runtests}</haltOnFailure>
                         <totalLineRate>70</totalLineRate>
                     </check>
                 </configuration>
