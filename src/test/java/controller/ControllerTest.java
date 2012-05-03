@@ -48,7 +48,7 @@ public class ControllerTest {
         Loads.getInstance().clearAllEntries();
     }
 
-    @Test
+    //@Test
     public void reserveLoadByIDTest()throws Exception{
 
         Load expectedNotReservedLoad = controller.insertLoad("LoadNotResContent", "LoadNotResHarbor","LoadNotResDest");
@@ -116,7 +116,7 @@ public class ControllerTest {
         User user = controller.authenticate("foo", "barr");
     }
 
-    @Test
+   // @Test
     public void registerUserTest() throws NoSuchUserNameException, PasswordException {
         controller.registerUser("foo", "bar");
 
