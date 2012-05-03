@@ -2,6 +2,7 @@ package showBeans;
 
 import controller.Controller;
 import exceptions.LoadNotFoundException;
+import exceptions.ServerException;
 import model.Load;
 import sessionBeans.UserSessionBean;
 
@@ -33,6 +34,8 @@ public class RegisterLoadsManageBean {
         try {
             loads = controller.getReservedLoads(loggedInUser.getLoggedInUser());
         } catch (LoadNotFoundException ignored) {
+
+        } catch (ServerException e) {
 
         }
         return loads;

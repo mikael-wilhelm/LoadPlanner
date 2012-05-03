@@ -25,7 +25,7 @@ public class Controller {
         return loadDAO.getNotReservedLoadsFilteredByHarbor(s);
     }
 
-    public List<Load> getReservedLoads(User user) throws LoadNotFoundException {
+    public List<Load> getReservedLoads(User user) throws LoadNotFoundException, ServerException {
         List<Load> tempLoads = new ArrayList<Load>();
         try {
             tempLoads = loadDAO.getReservedLoads(user);
@@ -52,7 +52,7 @@ public class Controller {
             reserveLoad(load,user);
     }
 
-    public void reserveLoad(Load load, User user){
+    public void reserveLoad(Load load, User user) throws ServerException {
         load.setReserved(true);
         load.setReservedBy(user);
         try {
