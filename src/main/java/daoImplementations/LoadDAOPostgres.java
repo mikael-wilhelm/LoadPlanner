@@ -45,46 +45,41 @@ public class LoadDAOPostgres implements LoadDAO {
     }
 
     private boolean testIfIdAvailable(int id) throws ServerException {
-        boolean isValid;
-        Connection connection = getConnection();
-        Statement stmt = getStmt(connection);
-        try {
-            ResultSet rs = stmt.executeQuery("SELECT id FROM loads WHERE id=" + id + ";");
-            isValid = !rs.next();
-            rs.close();
-        } catch (SQLException e) {
-            throw new ServerException();
-        }finally{
-            closeStmt(stmt);
-            closeConnection(connection);
-        }
-        return isValid;
-    }
-
-    private Statement getStmt(Connection connection) throws ServerException {
-        try {
-            return connection.createStatement();
-        } catch (SQLException e) {
-            throw new ServerException();
-        }
-
-    }
-
-    private void closeStmt(Statement stmt) throws ServerException {
-        try {
-            stmt.close();
-        } catch (SQLException e) {
-            throw new ServerException();
-        }
-    }
-
-    private void closeConnection(Connection connection) throws ServerException {
-        try {
+        boolean isOk = false;
+        try{
+            Connection connection = getConnection();
+            isOk = createStatement(connection,id);
             connection.close();
         } catch (SQLException e) {
-            throw new ServerException();
+
         }
+        return isOk;
     }
+
+    private boolean createStatement(Connection connection,int id){
+        boolean isOk = false;
+        try {
+            Statement stmt = connection.createStatement();
+            isOk = createResultSet(stmt, id);
+            stmt.close();
+        } catch (SQLException e) {
+        }
+        return isOk;
+    }
+
+    private boolean createResultSet(Statement stmt, int id){
+        boolean isOk = false;
+        try {
+            ResultSet rs = stmt.executeQuery("SELECT id FROM loads WHERE id=" + id + ";");
+            isOk = !rs.next();
+            rs.close();
+        } catch (SQLException e) {
+
+        }
+        return isOk;
+    }
+
+
 
     @Override
     public Load updateLoad(Load load) throws ServerException, SQLException {
@@ -170,12 +165,6 @@ public class LoadDAOPostgres implements LoadDAO {
             return connection;
         } catch (SQLException e) {
             throw new ServerException();
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            }
         }
 
     }
