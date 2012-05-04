@@ -49,41 +49,45 @@ public class LoadDAOPostgres implements LoadDAO {
         Connection connection = getConnection();
         try{
             isOk = createStatement(connection,id);
+        } catch (SQLException e) {
+            throw new ServerException();
+        } finally {
+            closeConnection(connection);
+        }
+        return isOk;
+    }
+
+    private boolean createStatement(Connection connection,int id) throws ServerException, SQLException {
+        boolean isOk = false;
+        Statement stmt = connection.createStatement();
+        try {
+            isOk = createResultSet(stmt, id);
         }
         finally {
-            try {
+            stmt.close();
+        }
+        return isOk;
+    }
+
+    private boolean createResultSet(Statement stmt, int id) throws SQLException {
+        boolean isOk = false;
+        ResultSet rs = stmt.executeQuery("SELECT id FROM loads WHERE id=" + id + ";");
+        try {
+            isOk = !rs.next();
+        }
+        finally {
+            rs.close();
+        }
+        return isOk;
+    }
+
+     private void closeConnection(Connection connection){
+         try {
                 connection.close();
             } catch (SQLException e) {
 
             }
-        }
-        return isOk;
-    }
-
-    private boolean createStatement(Connection connection,int id){
-        boolean isOk = false;
-        try {
-            Statement stmt = connection.createStatement();
-            isOk = createResultSet(stmt, id);
-            stmt.close();
-        } catch (SQLException e) {
-        }
-        return isOk;
-    }
-
-    private boolean createResultSet(Statement stmt, int id){
-        boolean isOk = false;
-        try {
-            ResultSet rs = stmt.executeQuery("SELECT id FROM loads WHERE id=" + id + ";");
-            isOk = !rs.next();
-            rs.close();
-        } catch (SQLException e) {
-
-        }
-        return isOk;
-    }
-
-
+     }
 
     @Override
     public Load updateLoad(Load load) throws ServerException, SQLException {
