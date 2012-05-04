@@ -8,7 +8,7 @@
 <head>
     <title></title>
 </head>
-<f:event listener="#{userSessionBean.checkUser}" type="preRenderView" />
+<f:event listener="#{se.exjobb.userSessionBean.checkUser}" type="preRenderView" />
 <body>
 <h:panelGroup layout="block" style="border: 1px solid;padding:3px;  position:relative; float:left; left:10px; top:5px; ">    <h:form id="linkForm">
         <h:commandLink action="registerLoads.xhtml" id="administrateLoadLink" value="Administrate Loads">
@@ -17,7 +17,7 @@
         <h:commandLink action="showLoads.xhtml" id="showLoads" value="Show Loads">
         </h:commandLink>
         <f:verbatim><br/></f:verbatim>
-        <h:outputText value="#{menuBean.loggedInUser.loggedInUser}"></h:outputText>
+        <h:outputText value="#{se.exjobb.menuBean.loggedInUser.loggedInUser}"></h:outputText>
     </h:form>
 
 </h:panelGroup>

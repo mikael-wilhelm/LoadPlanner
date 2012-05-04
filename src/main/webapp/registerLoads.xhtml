@@ -19,27 +19,27 @@
             <tr>
                 <td>Content:</td>
                 <td>
-                    <h:inputText required="true" id="contentInput" label="Enter Content" value="#{registerLoadsManageBean.tempContent}"></h:inputText>
+                    <h:inputText required="true" id="contentInput" label="Enter Content" value="#{se.exjobb.registerLoadsManageBean.tempContent}"></h:inputText>
                     <h:message for="contentInput">Content required</h:message>
                 </td>
             </tr>
             <tr>
                 <td>Current Harbor:</td>
                 <td>
-                    <h:inputText required="true" id="harborInput" value="#{registerLoadsManageBean.tempHarbor}"></h:inputText>
+                    <h:inputText required="true" id="harborInput" value="#{se.exjobb.registerLoadsManageBean.tempHarbor}"></h:inputText>
                     <h:message for="harborInput"></h:message>
                 </td>
             </tr>
             <tr>
                 <td>Destination:</td>
                 <td>
-                    <h:inputText required="true" id="destinationInput" value="#{registerLoadsManageBean.tempDestination}"></h:inputText>
+                    <h:inputText required="true" id="destinationInput" value="#{se.exjobb.registerLoadsManageBean.tempDestination}"></h:inputText>
                     <h:message for="harborInput"></h:message>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <h:commandButton value="Register loads" id="registerLoadButton" action="#{registerLoadsManageBean.registerLoad}"></h:commandButton>
+                    <h:commandButton value="Register loads" id="registerLoadButton" action="#{se.exjobb.registerLoadsManageBean.registerLoad}"></h:commandButton>
                 </td>
             </tr>
 
@@ -51,7 +51,7 @@
 <h:panelGroup style="background-color:#e0ffff; border: 1px solid; position:relative; float:right; right:10%; top:100px; ">
     Reserved Loads
     <h:form id="reservedForm">
-        <h:dataTable id="reservedLoads" value="#{registerLoadsManageBean.loads}" var="row" border="5" >
+        <h:dataTable id="reservedLoads" value="#{se.exjobb.registerLoadsManageBean.loads}" var="row" border="5" >
             <h:column>
                 <f:facet name="header" >Id</f:facet>
                 <h:outputText value="#{row.id}"/>
