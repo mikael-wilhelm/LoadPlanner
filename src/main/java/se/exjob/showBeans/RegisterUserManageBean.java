@@ -6,7 +6,7 @@ import se.exjob.exceptions.ServerException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
-@ManagedBean
+@ManagedBean(name="registerUserManageBean")
 @RequestScoped
 public class RegisterUserManageBean {
     private String userName;

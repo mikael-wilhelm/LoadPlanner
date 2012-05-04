@@ -188,9 +188,6 @@ public class LoadDAOPostgres implements LoadDAO {
             return connection;
         } catch (SQLException e) {
             throw new ServerException(e);
-        }finally {
-            try { if (connection != null) {connection.close();} } catch (SQLException e) {throw new ServerException(e);};
         }
-
     }
 }

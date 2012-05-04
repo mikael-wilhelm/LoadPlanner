@@ -7,11 +7,13 @@ import se.exjob.exceptions.ServerException;
 import se.exjob.model.User;
 import se.exjob.sessionBeans.UserSessionBean;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 
-@ManagedBean
+@ManagedBean(name = "logInBean")
 @RequestScoped
 public class LogInBean {
     private String userName;
@@ -22,17 +24,23 @@ public class LogInBean {
 
     public String logIn(){
         String returnPage;
+        FacesMessage doneMessage = null;
         try {
             User user = controller.authenticate(userName,password);
             loggedInUser.setLoggedInUser(user);
             returnPage= "showLoads.xhtml";
+            doneMessage = new FacesMessage("");
         } catch (NoSuchUserNameException e) {
             returnPage = "logIn.xhtml";
+            doneMessage = new FacesMessage("There is no such User");
         } catch (PasswordException e) {
             returnPage = "logIn.xhtml";
+            doneMessage = new FacesMessage("Password incorrect");
         } catch (ServerException e) {
             returnPage = "logIn.xhtml" ;
+            doneMessage = new FacesMessage("Server error");
         }
+        FacesContext.getCurrentInstance().addMessage(null,doneMessage);
         return returnPage;
     }
 

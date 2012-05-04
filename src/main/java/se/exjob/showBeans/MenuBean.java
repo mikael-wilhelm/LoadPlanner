@@ -6,7 +6,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 
-@ManagedBean
+@ManagedBean(name ="menuBean")
 @RequestScoped
 public class MenuBean {
     @ManagedProperty(value="#{userSessionBean}")

@@ -10,7 +10,7 @@ import javax.faces.bean.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@ManagedBean
+@ManagedBean(name ="registerLoadsManageBean")
 @RequestScoped
 public class RegisterLoadsManageBean {
 

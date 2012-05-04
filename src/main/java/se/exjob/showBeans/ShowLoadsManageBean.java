@@ -16,7 +16,7 @@ import javax.faces.context.FacesContext;
 import java.util.ArrayList;
 import java.util.List;
 
-@ManagedBean
+@ManagedBean(name="showLoadsManageBean")
 @RequestScoped
 public class ShowLoadsManageBean {
 

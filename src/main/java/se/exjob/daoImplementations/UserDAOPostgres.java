@@ -18,21 +18,33 @@ import java.util.logging.Logger;
 public class UserDAOPostgres implements UserDAO{
     @Override
     public User authenticate(String userName, String password) throws NoSuchUserNameException, PasswordException, ServerException {
-        return getUser(userName);
+
+        User tempUser =  getUser(userName);
+
+        if(!tempUser.getPassword().equals(password))  {
+            throw new PasswordException();
+        }
+        else{
+            return tempUser;
+        }
     }
 
-    public User getUser(String userName) throws ServerException{
-
+    public User getUser(String userName) throws ServerException, NoSuchUserNameException {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         User tempUser;
         try {
             conn = getConnection();
-            ps = conn.prepareStatement("SELECT userName, password FROM loadUsers WHERE userName = ?;");
+            ps = conn.prepareStatement("SELECT userName, password FROM loadusers WHERE userName = ?;");
             ps.setString(1,userName);
             rs = ps.executeQuery();
-            tempUser = new User(rs.getString("username"),rs.getString("password"));
+            if(rs.next()){
+                tempUser = new User(rs.getString("username"),rs.getString("password"));
+            }
+            else{
+                throw new NoSuchUserNameException();
+            }
         }
         catch (SQLException sql){
             throw new ServerException(sql);
@@ -81,8 +93,6 @@ public class UserDAOPostgres implements UserDAO{
             return connection;
         } catch (SQLException e) {
             throw new ServerException(e);
-        }finally {
-            try { if (connection != null) {connection.close();} } catch (SQLException e) {throw new ServerException(e);};
         }
     }
 }

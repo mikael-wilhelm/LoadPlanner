@@ -16,20 +16,20 @@
             <tr>
                 <td>User Name:</td>
                 <td>
-                    <h:inputText required="true" id="userName" label="User Name" value="#{se.exjobb.registerUserManageBean.userName}"></h:inputText>
+                    <h:inputText required="true" id="userName" label="User Name" value="#{registerUserManageBean.userName}"></h:inputText>
                     <h:message for="userName"></h:message>
                 </td>
             </tr>
             <tr>
                 <td>Password:</td>
                 <td>
-                    <h:inputText required="true" id="password" value="#{se.exjobb.registerUserManageBean.password}"></h:inputText>
+                    <h:inputText required="true" id="password" value="#{registerUserManageBean.password}"></h:inputText>
                     <h:message for="password"></h:message>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <h:commandButton value="Register" id="registerButton" action="#{se.exjobb.registerUserManageBean.register}"></h:commandButton>
+                    <h:commandButton value="Register" id="registerButton" action="#{registerUserManageBean.register}"></h:commandButton>
                 </td>
             </tr>
             <tr>
