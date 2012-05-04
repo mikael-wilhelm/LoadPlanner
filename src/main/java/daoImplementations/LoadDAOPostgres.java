@@ -19,19 +19,22 @@ public class LoadDAOPostgres implements LoadDAO {
     @Override
     public Load insertLoad(String content, String harbor, String destination) throws Exception {
         Load tempLoad = new Load(getValidId(), content, harbor, destination);
-        Connection connection = getConnection();
-        PreparedStatement stmt = connection.prepareStatement("INSERT INTO loads (id, content, harbor, destination) VALUES (?,?,?,?)");
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        try {
+            conn = getConnection();
+            stmt = conn.prepareStatement("INSERT INTO loads (id, content, harbor, destination) VALUES (?,?,?,?)");
+            stmt.setInt(1, tempLoad.getId());
+            stmt.setString(2, tempLoad.getContent());
+            stmt.setString(3, tempLoad.getHarbor());
+            stmt.setString(4, tempLoad.getDestination());
+            stmt.execute();
+        } catch (SQLException sql){
 
-        stmt.setInt(1, tempLoad.getId());
-        stmt.setString(2, tempLoad.getContent());
-        stmt.setString(3, tempLoad.getHarbor());
-        stmt.setString(4, tempLoad.getDestination());
-
-        stmt.execute();
-
-        stmt.close();
-        connection.close();
-
+        } finally {
+            try { if (stmt != null) stmt.close(); } catch (SQLException e) {throw new ServerException();};
+            try { if (conn != null) conn.close(); } catch (SQLException e) {throw new ServerException();};
+        }
         return tempLoad;
     }
 
@@ -58,15 +61,15 @@ public class LoadDAOPostgres implements LoadDAO {
         } catch (SQLException sql){
 
         } finally {
-            try { if (rs != null) rs.close(); } catch (Exception e) {};
-            try { if (stmt != null) stmt.close(); } catch (Exception e) {};
-            try { if (conn != null) conn.close(); } catch (Exception e) {};
+            try { if (rs != null) rs.close(); } catch (SQLException e) {throw new ServerException();};
+            try { if (stmt != null) stmt.close(); } catch (SQLException e) {throw new ServerException();};
+            try { if (conn != null) conn.close(); } catch (SQLException e) {throw new ServerException();};
         }
         return isOk;
     }
 
     @Override
-    public Load updateLoad(Load load) throws ServerException, SQLException {
+    public Load updateLoad(Load load) throws ServerException {
         Connection conn = null;
         PreparedStatement ps = null;
         try {
@@ -82,17 +85,17 @@ public class LoadDAOPostgres implements LoadDAO {
         } catch (SQLException sql){
 
         } finally {
-            try { if (ps != null) ps.close(); } catch (Exception e) {};
-            try { if (conn != null) conn.close(); } catch (Exception e) {};
+            try { if (ps != null) ps.close(); } catch (SQLException e) {throw new ServerException();};
+            try { if (conn != null) conn.close(); } catch (SQLException e) {throw new ServerException();};
         }
         return load;
     }
 
     @Override
-    public Load getLoad(int loadID) throws LoadNotFoundException, SQLException, URISyntaxException, ServerException {
+    public Load getLoad(int loadID) throws LoadNotFoundException,ServerException {
         Connection conn = null;
         PreparedStatement ps = null;
-        ResultSet rs;
+        ResultSet rs = null;
         Load tempLoad = null;
         try {
             Connection connection = getConnection();
@@ -107,44 +110,60 @@ public class LoadDAOPostgres implements LoadDAO {
         catch (SQLException sql){
 
         } finally {
-            try { if (ps != null) ps.close(); } catch (Exception e) {};
-            try { if (conn != null) conn.close(); } catch (Exception e) {};
+            try { if (rs != null) rs.close(); } catch (SQLException e) {throw new ServerException();};
+            try { if (ps != null) ps.close(); } catch (SQLException e) {throw new ServerException();};
+            try { if (conn != null) conn.close(); } catch (SQLException e) {throw new ServerException();};
         }
         return tempLoad;
     }
 
     @Override
-    public List<Load> getReservedLoads(User user) throws SQLException, URISyntaxException, LoadNotFoundException, ServerException {
-        Connection connection = getConnection();
-        PreparedStatement ps = connection.prepareStatement("SELECT id,reservedBy,userName FROM loads,loadUsers WHERE loads.reservedBy=loadUsers.userName AND reserved=TRUE AND reservedBy = ?;");
-        ps.setString(1, user.getUserName());
-        ResultSet rs = ps.executeQuery();
+    public List<Load> getReservedLoads(User user) throws LoadNotFoundException, ServerException {
+
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         List<Load> tempLoads = new ArrayList<Load>();
-        while (rs.next())
-            tempLoads.add(getLoad(Integer.parseInt(rs.getString("id"))));
-        rs.close();
-        ps.close();
-        connection.close();
+        try {
+            Connection connection = getConnection();
+            ps = connection.prepareStatement("SELECT id,reservedBy,userName FROM loads,loadUsers WHERE loads.reservedBy=loadUsers.userName AND reserved=TRUE AND reservedBy = ?;");
+            ps.setString(1, user.getUserName());
+            rs = ps.executeQuery();
+            while (rs.next())
+                    tempLoads.add(getLoad(Integer.parseInt(rs.getString("id"))));
+        }
+        catch (SQLException sql){
+
+        } finally {
+            try { if (rs != null) rs.close(); } catch (SQLException e) {throw new ServerException();};
+            try { if (ps != null) ps.close(); } catch (SQLException e) {throw new ServerException();};
+            try { if (conn != null) conn.close(); } catch (SQLException e) {throw new ServerException();};
+        }
         return tempLoads;
     }
 
     @Override
-    public List<Load> getNotReservedLoadsFilteredByHarbor(String s) throws ServerException, LoadNotFoundException {
-        Connection connection = null;
+    public List<Load> getNotReservedLoadsFilteredByHarbor(String s) throws ServerException, LoadNotFoundException{
+
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<Load> tempLoads = new ArrayList<Load>();
         try {
-            connection = getConnection();
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT id FROM loads WHERE reserved=FALSE;");
-            List<Load> tempLoads = new ArrayList<Load>();
+            Connection connection = getConnection();
+            ps = connection.prepareStatement("SELECT id FROM loads WHERE reserved=FALSE;");
+            rs = ps.executeQuery();
             while (rs.next())
-                tempLoads.add(getLoad(Integer.parseInt(rs.getString("id"))));
-            connection.close();
-            return tempLoads;
-        } catch (URISyntaxException e) {
-            throw new ServerException();
-        } catch (SQLException e) {
-            throw new ServerException();
+                    tempLoads.add(getLoad(Integer.parseInt(rs.getString("id"))));
         }
+        catch (SQLException sql){
+            throw new ServerException();
+        } finally {
+            try { if (rs != null) rs.close(); } catch (SQLException e) {throw new ServerException();};
+            try { if (ps != null) ps.close(); } catch (SQLException e) {throw new ServerException();};
+            try { if (conn != null) conn.close(); } catch (SQLException e) {throw new ServerException();};
+        }
+        return tempLoads;
     }
 
     @Override

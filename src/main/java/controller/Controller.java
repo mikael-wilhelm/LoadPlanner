@@ -27,25 +27,13 @@ public class Controller {
 
     public List<Load> getReservedLoads(User user) throws LoadNotFoundException, ServerException {
         List<Load> tempLoads = new ArrayList<Load>();
-        try {
-            tempLoads = loadDAO.getReservedLoads(user);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+        tempLoads = loadDAO.getReservedLoads(user);
         return tempLoads;
     }
 
     public void reserveLoad(int loadID, User user) throws ServerException,LoadAlreadyReservedException, LoadNotFoundException {
         Load load = null;
-        try {
-            load = loadDAO.getLoad(loadID);
-        } catch (SQLException e) {
-            throw new ServerException();
-        } catch (URISyntaxException e) {
-            throw new ServerException();
-        }
+        load = loadDAO.getLoad(loadID);
         if(load.getReserved())
             throw new LoadAlreadyReservedException();
         else
@@ -55,13 +43,7 @@ public class Controller {
     public void reserveLoad(Load load, User user) throws ServerException {
         load.setReserved(true);
         load.setReservedBy(user);
-        try {
-            loadDAO.updateLoad(load);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+        loadDAO.updateLoad(load);
     }
 
     public List<Load> getAllLoads() throws Exception {
