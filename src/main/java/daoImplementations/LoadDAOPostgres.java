@@ -46,12 +46,16 @@ public class LoadDAOPostgres implements LoadDAO {
 
     private boolean testIfIdAvailable(int id) throws ServerException {
         boolean isOk = false;
+        Connection connection = getConnection();
         try{
-            Connection connection = getConnection();
             isOk = createStatement(connection,id);
-            connection.close();
-        } catch (SQLException e) {
+        }
+        finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
 
+            }
         }
         return isOk;
     }
