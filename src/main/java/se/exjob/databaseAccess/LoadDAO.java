@@ -8,11 +8,11 @@ import se.exjob.model.User;
 import java.util.List;
 
 public interface LoadDAO {
-    public Load insertLoad(String content, String harbor,String destination) throws Exception;
+    public Load insertLoad(String content, String harbor,String destination) throws ServerException;
     public Load updateLoad(Load load) throws ServerException;
     public Load getLoad(int loadID) throws LoadNotFoundException, ServerException;
     public List<Load> getReservedLoads(User user) throws LoadNotFoundException, ServerException;
     public List<Load> getNotReservedLoadsFilteredByHarbor(String s) throws ServerException, LoadNotFoundException;
-    public List<Load> getAllLoads() throws Exception;
+    public List<Load> getAllLoads() throws ServerException;
 
 }

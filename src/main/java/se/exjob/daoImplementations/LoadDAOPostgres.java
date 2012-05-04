@@ -17,7 +17,7 @@ import java.util.Random;
 public class LoadDAOPostgres implements LoadDAO {
 
     @Override
-    public Load insertLoad(String content, String harbor, String destination) throws Exception {
+    public Load insertLoad(String content, String harbor, String destination) throws ServerException {
         Load tempLoad = new Load(getValidId(), content, harbor, destination);
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -98,8 +98,8 @@ public class LoadDAOPostgres implements LoadDAO {
         ResultSet rs = null;
         Load tempLoad = null;
         try {
-            Connection connection = getConnection();
-            ps = connection.prepareStatement("SELECT * FROM loads WHERE id = ?;");
+            conn = getConnection();
+            ps = conn.prepareStatement("SELECT * FROM loads WHERE id = ?;");
             ps.setInt(1,loadID);
             rs = ps.executeQuery();
             if(rs.next()){
@@ -127,8 +127,8 @@ public class LoadDAOPostgres implements LoadDAO {
         ResultSet rs = null;
         List<Load> tempLoads = new ArrayList<Load>();
         try {
-            Connection connection = getConnection();
-            ps = connection.prepareStatement("SELECT id,reservedBy,userName FROM loads,loadUsers WHERE loads.reservedBy=loadUsers.userName AND reserved=TRUE AND reservedBy = ?;");
+            conn = getConnection();
+            ps = conn.prepareStatement("SELECT id,reservedBy,userName FROM loads,loadUsers WHERE loads.reservedBy=loadUsers.userName AND reserved=TRUE AND reservedBy = ?;");
             ps.setString(1, user.getUserName());
             rs = ps.executeQuery();
             while (rs.next())
@@ -151,8 +151,8 @@ public class LoadDAOPostgres implements LoadDAO {
         ResultSet rs = null;
         List<Load> tempLoads = new ArrayList<Load>();
         try {
-            Connection connection = getConnection();
-            ps = connection.prepareStatement("SELECT id FROM loads WHERE reserved=FALSE;");
+            conn = getConnection();
+            ps = conn.prepareStatement("SELECT id FROM loads WHERE reserved=FALSE;");
             rs = ps.executeQuery();
             while (rs.next())
                     tempLoads.add(getLoad(Integer.parseInt(rs.getString("id"))));
@@ -168,12 +168,12 @@ public class LoadDAOPostgres implements LoadDAO {
     }
 
     @Override
-    public List<Load> getAllLoads() throws Exception {
+    public List<Load> getAllLoads() throws ServerException {
         return null;
     }
 
     private static Connection getConnection() throws ServerException {
-        URI dbUri = null;
+        URI dbUri;
         try {
             dbUri = new URI(System.getenv("SHARED_DATABASE_URL"));
         } catch (URISyntaxException e) {
@@ -188,6 +188,8 @@ public class LoadDAOPostgres implements LoadDAO {
             return connection;
         } catch (SQLException e) {
             throw new ServerException(e);
+        }finally {
+            try { if (connection != null) {connection.close();} } catch (SQLException e) {throw new ServerException(e);};
         }
 
     }

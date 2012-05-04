@@ -14,7 +14,7 @@ public class Controller {
     private LoadDAO loadDAO = new LoadDAOPostgres();
     private UserDAO userDAO = new UserDAOPostgres();
 
-    public Load insertLoad(String content, String harbor, String destination) throws Exception {
+    public Load insertLoad(String content, String harbor, String destination) throws ServerException {
         return loadDAO.insertLoad(content, harbor, destination);
     }
 
@@ -29,10 +29,12 @@ public class Controller {
 
     public void reserveLoad(int loadID, User user) throws ServerException,LoadAlreadyReservedException, LoadNotFoundException {
         Load load = loadDAO.getLoad(loadID);
-        if(load.getReserved())
+        if(load.getReserved()){
             throw new LoadAlreadyReservedException();
-        else
+        }
+        else{
             reserveLoad(load,user);
+        }
     }
 
     public void reserveLoad(Load load, User user) throws ServerException {
@@ -53,11 +55,11 @@ public class Controller {
         this.userDAO = userDAO;
     }
 
-    public User authenticate(String userName, String password) throws NoSuchUserNameException, PasswordException {
+    public User authenticate(String userName, String password) throws NoSuchUserNameException, PasswordException, ServerException {
         return userDAO.authenticate(userName,password);
     }
 
-    public void registerUser(String userName, String password) {
+    public void registerUser(String userName, String password) throws ServerException {
         userDAO.registerUser(userName,password);
     }
 }

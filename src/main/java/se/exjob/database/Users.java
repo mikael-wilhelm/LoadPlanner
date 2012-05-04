@@ -25,8 +25,9 @@ public class Users {
             userList.put(userName, password);
             return tempUser;
         }
-        else
+        else{
             return null;
+        }
     }
 
     public User authenticate(String userName, String password) throws NoSuchUserNameException,PasswordException {

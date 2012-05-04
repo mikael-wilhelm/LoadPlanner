@@ -99,7 +99,7 @@ public class ControllerTest {
     }
 
     @Test
-    public void authenticate() throws NoSuchUserNameException, PasswordException {
+    public void authenticate() throws NoSuchUserNameException, PasswordException, ServerException {
         Users.getInstance().registerUser("foo", "bar");
         User user = controller.authenticate("foo", "bar");
 
@@ -109,13 +109,13 @@ public class ControllerTest {
     }
 
     @Test (expected = PasswordException.class)
-    public void wrongAuthenticate() throws NoSuchUserNameException, PasswordException {
+    public void wrongAuthenticate() throws NoSuchUserNameException, PasswordException, ServerException {
         Users.getInstance().registerUser("foo", "bar");
         User user = controller.authenticate("foo", "barr");
     }
 
     @Test
-    public void registerUserTest() throws NoSuchUserNameException, PasswordException {
+    public void registerUserTest() throws NoSuchUserNameException, PasswordException, ServerException {
         controller.registerUser("foo", "bar");
 
         User user = controller.authenticate("foo","bar");

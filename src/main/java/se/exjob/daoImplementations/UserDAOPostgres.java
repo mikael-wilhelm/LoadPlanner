@@ -3,66 +3,86 @@ package se.exjob.daoImplementations;
 import se.exjob.exceptions.NoSuchUserNameException;
 import se.exjob.exceptions.PasswordException;
 import se.exjob.databaseAccess.UserDAO;
+import se.exjob.exceptions.ServerException;
+import se.exjob.model.Load;
 import se.exjob.model.User;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UserDAOPostgres implements UserDAO{
-    private static Connection getConnection() throws URISyntaxException, SQLException {
-        URI dbUri = new URI(System.getenv("SHARED_DATABASE_URL"));
+    @Override
+    public User authenticate(String userName, String password) throws NoSuchUserNameException, PasswordException, ServerException {
+        return getUser(userName);
+    }
+
+    public User getUser(String userName) throws ServerException{
+
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        User tempUser;
+        try {
+            conn = getConnection();
+            ps = conn.prepareStatement("SELECT userName, password FROM loadUsers WHERE userName = ?;");
+            ps.setString(1,userName);
+            rs = ps.executeQuery();
+            tempUser = new User(rs.getString("username"),rs.getString("password"));
+        }
+        catch (SQLException sql){
+            throw new ServerException(sql);
+        } finally {
+            try { if (rs != null){ rs.close();} } catch (SQLException e) {throw new ServerException(e);};
+            try { if (ps != null) {ps.close();} } catch (SQLException e) {throw new ServerException(e);};
+            try { if (conn != null) {conn.close();} } catch (SQLException e) {throw new ServerException(e);};
+        }
+        return tempUser;
+    }
+
+    @Override
+    public void registerUser(String userName, String password) throws ServerException {
+
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try {
+            conn = getConnection();
+            ps = conn.prepareStatement("INSERT INTO loadUsers VALUES(?,?)");
+            ps.setString(1,userName);
+            ps.setString(2,password);
+            ps.execute();
+        }
+        catch (SQLException sql){
+            throw new ServerException(sql);
+        } finally {
+            try { if (ps != null) {ps.close();} } catch (SQLException e) {throw new ServerException(e);};
+            try { if (conn != null) {conn.close();} } catch (SQLException e) {throw new ServerException(e);};
+        }
+
+    }
+
+    private static Connection getConnection() throws ServerException {
+        URI dbUri;
+        try {
+            dbUri = new URI(System.getenv("SHARED_DATABASE_URL"));
+        } catch (URISyntaxException e) {
+            throw new ServerException(e);
+        }
         String username = dbUri.getUserInfo().split(":")[0];
         String password = dbUri.getUserInfo().split(":")[1];
         String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + dbUri.getPath();
-        return DriverManager.getConnection(dbUrl, username, password);
-    }
-
-    @Override
-    public User authenticate(String userName, String password) throws NoSuchUserNameException, PasswordException {
-        User tempUser = getUser(userName);
-        try{
-            if(tempUser.getPassword().equals(password))
-                return tempUser;
-            else
-                return null;
-        }catch(Exception e){
-            return null;
-        }
-    }
-
-    public User getUser(String userName){
-
+        Connection connection = null;
         try {
-            Connection connection = getConnection();
-            PreparedStatement pstmt = connection.prepareStatement("SELECT userName, password FROM loadUsers WHERE userName = ?;");
-            pstmt.setString(1,userName);
-            ResultSet rs = pstmt.executeQuery();
-            connection.close();
-            rs.next();
-            return new User(rs.getString("username"),rs.getString("password"));
-        } catch (URISyntaxException e) {
-            return null;
+            connection = DriverManager.getConnection(dbUrl, username, password);
+            return connection;
         } catch (SQLException e) {
-            return null;
+            throw new ServerException(e);
+        }finally {
+            try { if (connection != null) {connection.close();} } catch (SQLException e) {throw new ServerException(e);};
         }
-
-    }
-
-    @Override
-    public void registerUser(String userName, String password) {
-        if(getUser(userName) == null)
-            try {
-                Connection connection = getConnection();
-                PreparedStatement pstmt = connection.prepareStatement("INSERT INTO loadUsers VALUES(?,?)");
-                pstmt.setString(1,userName);
-                pstmt.setString(2,password);
-                pstmt.execute();
-                connection.close();
-            } catch (URISyntaxException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            } catch (SQLException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            }
     }
 }

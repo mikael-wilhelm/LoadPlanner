@@ -1,6 +1,7 @@
 package se.exjob.showBeans;
 
 import se.exjob.controller.Controller;
+import se.exjob.exceptions.ServerException;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -13,7 +14,11 @@ public class RegisterUserManageBean {
     Controller controller = new Controller();
 
     public String register(){
-        controller.registerUser(userName,password);
+        try {
+            controller.registerUser(userName,password);
+        } catch (ServerException ignored) {
+
+        }
         return "logIn.xhtml";
     }
 

@@ -3,6 +3,7 @@ package se.exjob.showBeans;
 import se.exjob.controller.Controller;
 import se.exjob.exceptions.NoSuchUserNameException;
 import se.exjob.exceptions.PasswordException;
+import se.exjob.exceptions.ServerException;
 import se.exjob.model.User;
 import se.exjob.sessionBeans.UserSessionBean;
 
@@ -20,15 +21,19 @@ public class LogInBean {
     private UserSessionBean loggedInUser;
 
     public String logIn(){
+        String returnPage;
         try {
             User user = controller.authenticate(userName,password);
             loggedInUser.setLoggedInUser(user);
-            return "showLoads.xhtml";
+            returnPage= "showLoads.xhtml";
         } catch (NoSuchUserNameException e) {
-            return "logIn.xhtml";
+            returnPage = "logIn.xhtml";
         } catch (PasswordException e) {
-            return "logIn.xhtml";
+            returnPage = "logIn.xhtml";
+        } catch (ServerException e) {
+            returnPage = "logIn.xhtml" ;
         }
+        return returnPage;
     }
 
     public String getUserName() {
