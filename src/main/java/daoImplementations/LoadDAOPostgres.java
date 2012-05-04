@@ -46,75 +46,70 @@ public class LoadDAOPostgres implements LoadDAO {
 
     private boolean testIfIdAvailable(int id) throws ServerException {
         boolean isOk = false;
-        Connection connection = getConnection();
-        try{
-            isOk = createStatement(connection,id);
-        } catch (SQLException e) {
-            throw new ServerException();
-        } finally {
-            closeConnection(connection);
-        }
-        return isOk;
-    }
-
-    private boolean createStatement(Connection connection,int id) throws ServerException, SQLException {
-        boolean isOk = false;
-        Statement stmt = connection.createStatement();
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
         try {
-            isOk = createResultSet(stmt, id);
-        }
-        finally {
-            stmt.close();
-        }
-        return isOk;
-    }
-
-    private boolean createResultSet(Statement stmt, int id) throws SQLException {
-        boolean isOk = false;
-        ResultSet rs = stmt.executeQuery("SELECT id FROM loads WHERE id=" + id + ";");
-        try {
+            conn = getConnection();
+            stmt = conn.prepareStatement("SELECT id FROM loads WHERE id=?");
+            stmt.setInt(1,id);
+            rs = stmt.executeQuery();
             isOk = !rs.next();
-        }
-        finally {
-            rs.close();
+        } catch (SQLException sql){
+
+        } finally {
+            try { if (rs != null) rs.close(); } catch (Exception e) {};
+            try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+            try { if (conn != null) conn.close(); } catch (Exception e) {};
         }
         return isOk;
     }
-
-     private void closeConnection(Connection connection){
-         try {
-                connection.close();
-            } catch (SQLException e) {
-
-            }
-     }
 
     @Override
     public Load updateLoad(Load load) throws ServerException, SQLException {
-        Connection connection = getConnection();
-        PreparedStatement ps = connection.prepareStatement("UPDATE loads SET content=?, harbor=?, destination=?, reserved=?,reservedBy=? WHERE id=?;");
-        ps.setString(1, load.getContent());
-        ps.setString(2, load.getHarbor());
-        ps.setString(3, load.getDestination());
-        ps.setBoolean(4, load.getReserved());
-        ps.setString(5, load.getReservedBy().toString());
-        ps.setInt(6, load.getId());
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try {
+            conn = getConnection();
+            ps = conn.prepareStatement("UPDATE loads SET content=?, harbor=?, destination=?, reserved=?,reservedBy=? WHERE id=?;");
+            ps.setString(1, load.getContent());
+            ps.setString(2, load.getHarbor());
+            ps.setString(3, load.getDestination());
+            ps.setBoolean(4, load.getReserved());
+            ps.setString(5, load.getReservedBy().toString());
+            ps.setInt(6, load.getId());
+            ps.execute();
+        } catch (SQLException sql){
 
-        ps.execute();
-        connection.close();
+        } finally {
+            try { if (ps != null) ps.close(); } catch (Exception e) {};
+            try { if (conn != null) conn.close(); } catch (Exception e) {};
+        }
         return load;
     }
 
     @Override
     public Load getLoad(int loadID) throws LoadNotFoundException, SQLException, URISyntaxException, ServerException {
-        Connection connection = getConnection();
-        Statement stmt = connection.createStatement();
-        ResultSet loadValues = stmt.executeQuery("SELECT * FROM loads WHERE id = " + loadID + ";");
-        loadValues.next();
-        Load tempLoad = new Load(Integer.parseInt(loadValues.getString("id")), loadValues.getString("content"), loadValues.getString("harbor"), loadValues.getString("destination"));
-        loadValues.close();
-        stmt.close();
-        connection.close();
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs;
+        Load tempLoad = null;
+        try {
+            Connection connection = getConnection();
+            ps = connection.prepareStatement("SELECT * FROM loads WHERE id = ?;");
+            ps.setInt(1,loadID);
+            rs = ps.executeQuery();
+            if(rs.next())
+                tempLoad = new Load(Integer.parseInt(rs.getString("id")), rs.getString("content"), rs.getString("harbor"), rs.getString("destination"));
+            else
+                throw new LoadNotFoundException();
+        }
+        catch (SQLException sql){
+
+        } finally {
+            try { if (ps != null) ps.close(); } catch (Exception e) {};
+            try { if (conn != null) conn.close(); } catch (Exception e) {};
+        }
         return tempLoad;
     }
 
