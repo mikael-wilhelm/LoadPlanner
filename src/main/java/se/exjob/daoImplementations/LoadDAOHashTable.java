@@ -20,10 +20,11 @@ public  class LoadDAOHashTable implements LoadDAO {
     public List<Load> getNotReservedLoadsFilteredByHarbor(String matcher) {
         Loads tempLoads = Loads.getInstance();
         List<Load> loadsMatching = new ArrayList<Load>();
-        for(Load load : tempLoads.getLoads().values())
+        for(Load load : tempLoads.getLoads().values()){
             if(isLoadMatching(load,matcher)){
                 loadsMatching.add(load);
             }
+        }
         return loadsMatching;
     }
 
@@ -34,18 +35,20 @@ public  class LoadDAOHashTable implements LoadDAO {
     public List<Load> getAllLoads() {
         Loads tempLoads = Loads.getInstance();
         List<Load> loadsMatching = new ArrayList<Load>();
-        for(Load load : tempLoads.getLoads().values())
+        for(Load load : tempLoads.getLoads().values()) {
             loadsMatching.add(load);
+        }
         return loadsMatching;
     }
 
     public List<Load> getReservedLoads(User user) {
         Loads tempLoads = Loads.getInstance();
         List<Load> loadsMatching = new ArrayList<Load>();
-        for(Load load : tempLoads.getLoads().values())
+        for(Load load : tempLoads.getLoads().values()) {
             if(load.getReserved() && load.getReservedBy().equals(user)){
                 loadsMatching.add(load);
             }
+        }
         return loadsMatching;
     }
 

@@ -11,7 +11,7 @@ import javax.faces.bean.RequestScoped;
 public class RegisterUserManageBean {
     private String userName;
     private String password;
-    Controller controller = new Controller();
+    private Controller controller = new Controller();
 
     public String register(){
         try {

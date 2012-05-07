@@ -25,8 +25,8 @@ public class RegisterLoadsManageBean {
     public void registerLoad(){
         try {
             controller.insertLoad(tempContent, tempHarbor,tempDestination);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ignored) {
+
         }
     }
 

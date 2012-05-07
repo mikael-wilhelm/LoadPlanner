@@ -27,8 +27,8 @@ public class StartUp {
             flyway.setBaseDir("db/migration");
             flyway.setDataSource(dataSource);
             flyway.migrate();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ignored) {
+
         }
     }
 }

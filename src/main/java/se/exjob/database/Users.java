@@ -7,7 +7,7 @@ import se.exjob.model.User;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Users {
+public final class Users {
     private Map<String, String> userList = new HashMap<String, String> ();
     private static Users users = new Users();
 

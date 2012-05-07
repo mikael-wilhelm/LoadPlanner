@@ -23,8 +23,7 @@ public class Controller {
     }
 
     public List<Load> getReservedLoads(User user) throws LoadNotFoundException, ServerException {
-        List<Load> tempLoads = loadDAO.getReservedLoads(user);
-        return tempLoads;
+        return loadDAO.getReservedLoads(user);
     }
 
     public void reserveLoad(int loadID, User user) throws ServerException,LoadAlreadyReservedException, LoadNotFoundException {
@@ -43,7 +42,7 @@ public class Controller {
         loadDAO.updateLoad(load);
     }
 
-    public List<Load> getAllLoads() throws Exception {
+    public List<Load> getAllLoads() throws ServerException {
         return loadDAO.getAllLoads();
     }
 

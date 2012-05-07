@@ -42,8 +42,9 @@ public class LoadDAOPostgres implements LoadDAO {
         int actualId;
         Random rnd = new Random();
         actualId = rnd.nextInt(10000);
-        while (!testIfIdAvailable(actualId))
+        while (!testIfIdAvailable(actualId)){
             actualId = rnd.nextInt(10000);
+        }
         return actualId;
     }
 
@@ -131,8 +132,9 @@ public class LoadDAOPostgres implements LoadDAO {
             ps = conn.prepareStatement("SELECT id,reservedBy,userName FROM loads,loadUsers WHERE loads.reservedBy=loadUsers.userName AND reserved=TRUE AND reservedBy = ?;");
             ps.setString(1, user.getUserName());
             rs = ps.executeQuery();
-            while (rs.next())
+            while (rs.next()){
                     tempLoads.add(getLoad(Integer.parseInt(rs.getString("id"))));
+            }
         }
         catch (SQLException sql){
         } finally {
@@ -154,8 +156,9 @@ public class LoadDAOPostgres implements LoadDAO {
             conn = getConnection();
             ps = conn.prepareStatement("SELECT id FROM loads WHERE reserved=FALSE;");
             rs = ps.executeQuery();
-            while (rs.next())
+            while (rs.next()){
                     tempLoads.add(getLoad(Integer.parseInt(rs.getString("id"))));
+            }
         }
         catch (SQLException sql){
             throw new ServerException(sql);

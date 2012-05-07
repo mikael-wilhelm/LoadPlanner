@@ -18,7 +18,7 @@ import javax.faces.context.FacesContext;
 public class LogInBean {
     private String userName;
     private String password;
-    Controller controller = new Controller();
+    private Controller controller = new Controller();
     @ManagedProperty(value="#{userSessionBean}")
     private UserSessionBean loggedInUser;
 

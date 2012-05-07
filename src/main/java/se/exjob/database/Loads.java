@@ -6,7 +6,7 @@ import se.exjob.model.Load;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Loads {
+public final class Loads {
     private static Loads loads = new Loads();
     private Map<Integer,Load> loadList = new HashMap<Integer,Load>();
     private Loads(){
