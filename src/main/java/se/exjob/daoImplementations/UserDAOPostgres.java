@@ -82,6 +82,7 @@ public class UserDAOPostgres implements UserDAO{
         try {
             dbUri = new URI(System.getenv("SHARED_DATABASE_URL"));
         } catch (URISyntaxException e) {
+            e.printStackTrace();
             throw new ServerException(e);
         }
         String username = dbUri.getUserInfo().split(":")[0];

@@ -7,6 +7,9 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import java.net.URI;
 import java.sql.Driver;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
+import java.util.logging.Logger;
 
 
 @ManagedBean(eager = true)
@@ -20,7 +23,6 @@ public class StartUp {
             Driver driver = new org.postgresql.Driver();
             SimpleDriverDataSource dataSource = new SimpleDriverDataSource(driver,dbUrl );
             String password = dbUri.getUserInfo().split(":")[1];
-            System.out.println("test");
             dataSource.setUsername(dbUri.getUserInfo().split(":")[0]);
             dataSource.setPassword(password);
 
