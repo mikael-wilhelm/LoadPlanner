@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 public class StartUp {
     public StartUp(){
         try {
-            URI dbUri = new URI("postgres://postgres:Dataparm1@localhost/loadPlanner");
+            URI dbUri = new URI(System.getenv("SHARED_DATABASE_URL"));
             String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + dbUri.getPath();
             Driver driver = new org.postgresql.Driver();
             SimpleDriverDataSource dataSource = new SimpleDriverDataSource(driver,dbUrl );
