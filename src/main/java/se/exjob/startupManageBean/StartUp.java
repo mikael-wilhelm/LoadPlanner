@@ -20,6 +20,7 @@ public class StartUp {
             Driver driver = new org.postgresql.Driver();
             SimpleDriverDataSource dataSource = new SimpleDriverDataSource(driver,dbUrl );
             String password = dbUri.getUserInfo().split(":")[1];
+            System.out.println("test");
             dataSource.setUsername(dbUri.getUserInfo().split(":")[0]);
             dataSource.setPassword(password);
 
