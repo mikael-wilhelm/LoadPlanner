@@ -178,7 +178,8 @@ public class LoadDAOPostgres implements LoadDAO {
     private static Connection getConnection() throws ServerException {
         URI dbUri;
         try {
-            dbUri = new URI(System.getenv("SHARED_DATABASE_URL"));
+            //dbUri = new URI(System.getenv("SHARED_DATABASE_URL"));
+            dbUri = new URI("postgres://postgres:Dataparm1@localhost/loadPlanner");
         } catch (URISyntaxException e) {
             throw new ServerException(e);
         }
