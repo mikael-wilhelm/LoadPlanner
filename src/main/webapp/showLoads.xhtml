@@ -26,23 +26,24 @@
               </h:column>
 
               <h:column>
-                  <f:facet name="header" >Load Content Updated</f:facet>
+                  <f:facet name="header" >Load Content</f:facet>
                   <h:commandLink  id="cmd" value="#{row.content}">
                   </h:commandLink>
               </h:column>
 
               <h:column>
-                  <f:facet name="header" >Current Harbor</f:facet>
+                  <f:facet name="header" >Current Harbor To test</f:facet>
                   <h:outputText value="#{row.harbor}"/>
               </h:column>
 
               <h:column>
-                  <f:facet name="header" >DestinationsTest4</f:facet>
+                  <f:facet name="header" >DestinationsTest</f:facet>
                   <h:outputText value="#{row.destination}"/>
               </h:column>
 
               <h:column>
                 <h:commandButton id="book" value="Book" action="#{showLoadsManageBean.reserveLoad}">
+
                 </h:commandButton>
               </h:column>
 
