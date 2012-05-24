@@ -6,12 +6,15 @@
       xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
 <head>
     <title></title>
+  <meta http-equiv="refresh" content="#{session.maxInactiveInterval};url=login.xhtml" />
+
 </head>
 <f:event listener="#{userSessionBean.checkUser}" type="preRenderView" />
+
 <body>
 
 <ui:include src="menu.xhtml" />
-
+Version 1
 <h:panelGroup layout="block" style=" float:left; position:relative; left:400px; top:100px">
 
       <h:form id="showLoadsForm">

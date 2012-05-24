@@ -17,7 +17,7 @@
     </context-param>
 
     <session-config>
-        <session-timeout>35</session-timeout>
+        <session-timeout>55</session-timeout>
     </session-config>
 
     <servlet-mapping>
