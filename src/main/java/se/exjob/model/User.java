@@ -16,9 +16,7 @@ public class User {
 
         User user = (User) o;
 
-        if (!userName.equals(user.userName)) {return false; }
-
-        return true;
+        return userName.equals(user.userName);
     }
 
     @Override
