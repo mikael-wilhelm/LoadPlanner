@@ -1,0 +1,1 @@
+Main project to be pushed to Heroku. The complete Heroku project is divided into main and test and not together in one project since Heroku needs the src-directory to be in the git root.
